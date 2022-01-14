@@ -1,4 +1,4 @@
-package vn.com.tma.training.restaurant.enumType;
+package vn.com.tma.training.restaurant.enumtype;
 
 public interface MenuEnum {
     String getDisplayName();

@@ -1,7 +1,7 @@
 package vn.com.tma.training.restaurant.menu;
 
-import vn.com.tma.training.restaurant.enumType.FoodType;
-import vn.com.tma.training.restaurant.enumType.MenuType;
+import vn.com.tma.training.restaurant.enumtype.FoodType;
+import vn.com.tma.training.restaurant.enumtype.MenuType;
 
 public class Food extends MenuItem {
     private boolean isAvailable;

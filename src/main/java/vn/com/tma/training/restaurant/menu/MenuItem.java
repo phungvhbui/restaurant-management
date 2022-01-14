@@ -1,6 +1,6 @@
 package vn.com.tma.training.restaurant.menu;
 
-import vn.com.tma.training.restaurant.enumType.MenuType;
+import vn.com.tma.training.restaurant.enumtype.MenuType;
 
 public class MenuItem {
     protected int id;

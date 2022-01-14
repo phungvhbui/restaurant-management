@@ -1,6 +1,6 @@
 package vn.com.tma.training.restaurant.io.writer;
 
-import vn.com.tma.training.restaurant.enumType.MenuType;
+import vn.com.tma.training.restaurant.enumtype.MenuType;
 import vn.com.tma.training.restaurant.menu.Drink;
 import vn.com.tma.training.restaurant.menu.Food;
 import vn.com.tma.training.restaurant.menu.MenuItem;

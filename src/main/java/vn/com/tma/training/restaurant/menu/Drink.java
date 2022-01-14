@@ -1,7 +1,7 @@
 package vn.com.tma.training.restaurant.menu;
 
-import vn.com.tma.training.restaurant.enumType.DrinkType;
-import vn.com.tma.training.restaurant.enumType.MenuType;
+import vn.com.tma.training.restaurant.enumtype.DrinkType;
+import vn.com.tma.training.restaurant.enumtype.MenuType;
 
 public class Drink extends MenuItem {
     private int stock;
