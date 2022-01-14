@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "time": "2021-12-12 13:00",
+    "items": [
+      {
+        "id": 1,
+        "name": "Pho",
+        "unitPrice": 50000,
+        "unitType": "bowl",
+        "quantity": 2
+      },
+      {
+        "id": 7,
+        "name": "Coke",
+        "unitPrice": 12000,
+        "unitType": "can",
+        "quantity": 1
+      },
+      {
+        "id": 8,
+        "name": "Pepsi",
+        "unitPrice": 15000,
+        "unitType": "can",
+        "quantity": 1
+      }
+    ],
+    "price": 127000
+  },
+  {
+    "id": 2,
+    "time": "2022-01-14 17:25",
+    "items": [
+      {
+        "id": 16,
+        "name": "drink",
+        "unitPrice": 10000,
+        "unitType": "can",
+        "quantity": 2
+      }
+    ],
+    "price": 20000
+  }
+]
