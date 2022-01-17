@@ -30,9 +30,9 @@ public class Constant {
     public static final String MENU_INDEX = "menuIndex";
     public static final String ORDER_INDEX = "orderIndex";
     // File
-    public static final File ORDER_FILE = new File("/run/media/alexb/Work/TMA-Exercise/Java-Core/src/main/java/vn/com/tma/training/restaurant/data/order.json");
-    public static final File MENU_FILE = new File("/run/media/alexb/Work/TMA-Exercise/Java-Core/src/main/java/vn/com/tma/training/restaurant/data/menu.json");
-    public static final File INDEX_FILE = new File("/run/media/alexb/Work/TMA-Exercise/Java-Core/src/main/java/vn/com/tma/training/restaurant/data/index.json");
+    public static final File ORDER_FILE = new File(System.getenv("ORDER_FILE"));
+    public static final File MENU_FILE = new File(System.getenv("MENU_FILE"));
+    public static final File INDEX_FILE = new File(System.getenv("INDEX_FILE"));
     // Formatter
     public static final DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     // Menu
