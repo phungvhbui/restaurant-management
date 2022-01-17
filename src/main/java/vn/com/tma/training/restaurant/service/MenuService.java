@@ -3,6 +3,7 @@ package vn.com.tma.training.restaurant.service;
 import vn.com.tma.training.restaurant.entity.menu.Drink;
 import vn.com.tma.training.restaurant.entity.menu.Food;
 import vn.com.tma.training.restaurant.entity.menu.MenuItem;
+import vn.com.tma.training.restaurant.exception.NotYetImplementedException;
 import vn.com.tma.training.restaurant.io.reader.MenuReader;
 import vn.com.tma.training.restaurant.io.writer.MenuWriter;
 import vn.com.tma.training.restaurant.util.Index;
@@ -65,6 +66,7 @@ public class MenuService extends Service<MenuItem> {
         menuWriter.write(this.menuItemList);
     }
 
+    @Override
     public void show() {
         List<MenuItem> items = new ArrayList<>(this.menuItemList);
         items.sort(new MenuItemComparator());
@@ -88,8 +90,11 @@ public class MenuService extends Service<MenuItem> {
                 System.out.println("    " + subTypeMenu);
             }
 
-            // To print the item
             System.out.println("        " + item);
         }
+    }
+
+    public void export() {
+        throw new NotYetImplementedException();
     }
 }

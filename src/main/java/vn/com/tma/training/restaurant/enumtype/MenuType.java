@@ -1,10 +1,11 @@
 package vn.com.tma.training.restaurant.enumtype;
 
 import vn.com.tma.training.restaurant.exception.InvalidEnumValueException;
+import vn.com.tma.training.restaurant.util.Constant;
 
 public enum MenuType implements MenuEnum {
-    FOOD("Food", 0),
-    DRINK("Drink", 1);
+    FOOD(Constant.FOOD, 0),
+    DRINK(Constant.DRINK, 1);
     private final String type;
     private final int value;
 
@@ -19,7 +20,7 @@ public enum MenuType implements MenuEnum {
                 return e;
             }
         }
-        throw new InvalidEnumValueException("Menu");
+        throw new InvalidEnumValueException(Constant.MENU);
     }
 
     public String getDisplayName() {

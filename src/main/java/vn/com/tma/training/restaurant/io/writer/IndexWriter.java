@@ -18,8 +18,8 @@ public class IndexWriter implements Writer<Index> {
             os = new FileOutputStream(Constant.INDEX_FILE);
             JsonWriter writer = Json.createWriter(os);
             JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder()
-                    .add("menu", data.getMenuIndex())
-                    .add("order", data.getOrderIndex());
+                    .add(Constant.MENU_INDEX, data.getMenuIndex())
+                    .add(Constant.ORDER_INDEX, data.getOrderIndex());
             writer.writeObject(jsonObjectBuilder.build());
         } catch (FileNotFoundException e) {
             e.printStackTrace();

@@ -47,14 +47,6 @@ public class MenuItem {
         return unitPrice;
     }
 
-    public String toStringForOrder() {
-        return "{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", price=" + unitPrice + "/" + unitType + '\'' +
-                '}';
-    }
-
     public int getId() {
         return id;
     }
@@ -73,5 +65,23 @@ public class MenuItem {
 
     public String getUnitType() {
         return unitType;
+    }
+
+    public String toStringForOrder() {
+        return "{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + unitPrice + "/" + unitType + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        MenuItem menuItem = (MenuItem) o;
+        return id == menuItem.id;
     }
 }

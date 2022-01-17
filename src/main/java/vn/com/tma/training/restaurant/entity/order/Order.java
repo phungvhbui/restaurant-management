@@ -41,21 +41,6 @@ public class Order {
         this.totalPrice = total;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("ID: ").append(id).append("\n");
-        stringBuilder.append("Items: ").append("\n");
-        for (Map.Entry<MenuItem, Integer> set : orderedItems.entrySet()) {
-            MenuItem order = set.getKey();
-            int quantity = set.getValue();
-            stringBuilder.append("    ").append(order.toStringForOrder()).append(" - Quantity: ").append(quantity).append("\n");
-        }
-        stringBuilder.append("Time: ").append(orderedTime).append("\n");
-        stringBuilder.append("Total price: ").append(totalPrice).append("\n");
-        return stringBuilder.toString();
-    }
-
     public void exportOrder(String filename) {
         // TODO: Implement this
     }
@@ -78,5 +63,20 @@ public class Order {
 
     public int getTotalPrice() {
         return totalPrice;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("ID: ").append(id).append("\n");
+        stringBuilder.append("Items: ").append("\n");
+        for (Map.Entry<MenuItem, Integer> set : orderedItems.entrySet()) {
+            MenuItem order = set.getKey();
+            int quantity = set.getValue();
+            stringBuilder.append("    ").append(order.toStringForOrder()).append(" - Quantity: ").append(quantity).append("\n");
+        }
+        stringBuilder.append("Time: ").append(orderedTime).append("\n");
+        stringBuilder.append("Total price: ").append(totalPrice).append("\n");
+        return stringBuilder.toString();
     }
 }
