@@ -1,8 +1,9 @@
-package vn.com.tma.training.restaurant.menu;
+package vn.com.tma.training.restaurant.service;
 
-import vn.com.tma.training.restaurant.io.reader.IndexReader;
+import vn.com.tma.training.restaurant.entity.menu.Drink;
+import vn.com.tma.training.restaurant.entity.menu.Food;
+import vn.com.tma.training.restaurant.entity.menu.MenuItem;
 import vn.com.tma.training.restaurant.io.reader.MenuReader;
-import vn.com.tma.training.restaurant.io.writer.IndexWriter;
 import vn.com.tma.training.restaurant.io.writer.MenuWriter;
 import vn.com.tma.training.restaurant.util.Index;
 import vn.com.tma.training.restaurant.util.MenuItemComparator;
@@ -10,53 +11,54 @@ import vn.com.tma.training.restaurant.util.MenuItemComparator;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Menu {
+public class MenuService extends Service<MenuItem> {
     private final List<MenuItem> menuItemList;
     private final MenuWriter menuWriter;
-    private final IndexReader indexReader;
-    private final IndexWriter indexWriter;
 
-    public Menu() {
+    public MenuService() {
+        super();
         MenuReader menuReader = new MenuReader();
         this.menuWriter = new MenuWriter();
         this.menuItemList = menuReader.read();
-        this.indexReader = new IndexReader();
-        this.indexWriter = new IndexWriter();
     }
 
-    public MenuItem getItem(int id) {
+    @Override
+    public MenuItem get(int id) {
         for (MenuItem item : menuItemList) {
-            if (item.id == id) {
+            if (item.getId() == id) {
                 return item;
             }
         }
         return null;
     }
 
-    public void addItem(MenuItem item) {
+    @Override
+    public void add(MenuItem itemToAdd) {
         Index index = indexReader.read();
-        item.id = index.getMenuIndex() + 1;
+        itemToAdd.setId(index.getMenuIndex() + 1);
         index.setMenuIndex(index.getMenuIndex() + 1);
-        menuItemList.add(item);
+        menuItemList.add(itemToAdd);
         menuWriter.write(this.menuItemList);
         indexWriter.write(index);
     }
 
-    public void removeItem(int id) {
+    @Override
+    public void update(int id, MenuItem itemToUpdate) {
         for (int i = 0; i < menuItemList.size(); i++) {
-            if (menuItemList.get(i).id == id) {
-                menuItemList.remove(i);
+            if (menuItemList.get(i).getId() == id) {
+                itemToUpdate.setId(id);
+                menuItemList.set(i, itemToUpdate);
                 break;
             }
         }
         menuWriter.write(this.menuItemList);
     }
 
-    public void updateItem(int id, MenuItem item) {
+    @Override
+    public void remove(int id) {
         for (int i = 0; i < menuItemList.size(); i++) {
-            if (menuItemList.get(i).id == id) {
-                item.id = id;
-                menuItemList.set(i, item);
+            if (menuItemList.get(i).getId() == id) {
+                menuItemList.remove(i);
                 break;
             }
         }

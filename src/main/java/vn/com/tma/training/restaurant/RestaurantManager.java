@@ -1,22 +1,22 @@
 package vn.com.tma.training.restaurant;
 
+import vn.com.tma.training.restaurant.entity.menu.Drink;
+import vn.com.tma.training.restaurant.entity.menu.Food;
+import vn.com.tma.training.restaurant.entity.menu.MenuItem;
+import vn.com.tma.training.restaurant.entity.order.Order;
 import vn.com.tma.training.restaurant.enumtype.DrinkType;
 import vn.com.tma.training.restaurant.enumtype.FoodType;
 import vn.com.tma.training.restaurant.enumtype.MenuType;
-import vn.com.tma.training.restaurant.menu.Drink;
-import vn.com.tma.training.restaurant.menu.Food;
-import vn.com.tma.training.restaurant.menu.Menu;
-import vn.com.tma.training.restaurant.menu.MenuItem;
-import vn.com.tma.training.restaurant.order.Order;
-import vn.com.tma.training.restaurant.order.OrderList;
+import vn.com.tma.training.restaurant.service.MenuService;
+import vn.com.tma.training.restaurant.service.OrderService;
 
 import java.util.Scanner;
 
-public class Main {
+public class RestaurantManager {
     public static void main(String[] args) {
         // Init system
-        Menu menu = new Menu();
-        OrderList orderList = new OrderList();
+        MenuService menuService = new MenuService();
+        OrderService orderList = new OrderService();
         Order newOrder = new Order();
         Scanner scanner = new Scanner(System.in);
 
@@ -32,12 +32,12 @@ public class Main {
                     showHelp();
                     break;
                 case "menu show":
-                    menu.show();
+                    menuService.show();
                     break;
                 case "menu add":
                     MenuItem itemToAdd = inputItem(scanner);
                     if (itemToAdd != null) {
-                        menu.addItem(itemToAdd);
+                        menuService.add(itemToAdd);
                         System.out.println("Add item successfully.");
                     } else {
                         System.out.println("Add item failed. Please try again.");
@@ -52,14 +52,14 @@ public class Main {
                         e.printStackTrace();
                         break;
                     }
-                    MenuItem itemToUpdate = menu.getItem(updateId);
+                    MenuItem itemToUpdate = menuService.get(updateId);
                     if (itemToUpdate == null) {
                         System.out.println("Item does not exist.");
                         break;
                     }
                     MenuItem newItemToUpdate = inputItem(scanner);
                     if (newItemToUpdate != null) {
-                        menu.updateItem(updateId, newItemToUpdate);
+                        menuService.update(updateId, newItemToUpdate);
                         System.out.println("Update item successfully.");
                     } else {
                         System.out.println("Update item failed. Please try again.");
@@ -74,11 +74,11 @@ public class Main {
                         e.printStackTrace();
                         break;
                     }
-                    menu.removeItem(deleteId);
+                    menuService.remove(deleteId);
                     System.out.println("Remove item successfully.");
                     break;
                 case "order show":
-                    orderList.showOrders();
+                    orderList.show();
                     break;
 //                case "order export":
 //                    int exportId;
@@ -118,7 +118,7 @@ public class Main {
                         e.printStackTrace();
                         break;
                     }
-                    MenuItem itemToOrder = menu.getItem(orderItem);
+                    MenuItem itemToOrder = menuService.get(orderItem);
                     if (itemToOrder != null) {
                         newOrder.orderItem(itemToOrder, quantity);
                         System.out.println("Order item successfully.");
@@ -127,7 +127,7 @@ public class Main {
                     }
                     break;
                 case "order save":
-                    orderList.addOrder(newOrder);
+                    orderList.add(newOrder);
                     System.out.println("Save order successfully.");
                     newOrder = new Order();
                     break;

@@ -1,6 +1,6 @@
 package vn.com.tma.training.restaurant.exception;
 
-public class InvalidEnumValueException extends Exception{
+public class InvalidEnumValueException extends RuntimeException {
     private final String enumName;
 
     public InvalidEnumValueException(String enumName) {

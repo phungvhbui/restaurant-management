@@ -6,8 +6,8 @@ A simple console application to manage restaurant within Menu and Order specific
 
 ## Features/Codebase
 
-- [ ] Move constants
-- [ ] Create a service
+- [x] Move constants
+- [x] Create a service
 - [ ] Reduce main function length
 - [ ] Add orderById and menuById
 - [ ] Implement order export

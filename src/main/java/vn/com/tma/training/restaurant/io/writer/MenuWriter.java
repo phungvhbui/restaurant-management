@@ -1,12 +1,12 @@
 package vn.com.tma.training.restaurant.io.writer;
 
+import vn.com.tma.training.restaurant.entity.menu.Drink;
+import vn.com.tma.training.restaurant.entity.menu.Food;
+import vn.com.tma.training.restaurant.entity.menu.MenuItem;
 import vn.com.tma.training.restaurant.enumtype.MenuType;
-import vn.com.tma.training.restaurant.menu.Drink;
-import vn.com.tma.training.restaurant.menu.Food;
-import vn.com.tma.training.restaurant.menu.MenuItem;
+import vn.com.tma.training.restaurant.util.Constant;
 
 import javax.json.*;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
@@ -15,27 +15,26 @@ import java.util.List;
 public class MenuWriter implements Writer<List<MenuItem>> {
     @Override
     public void write(List<MenuItem> data) {
-        File jsonOutputFile = new File("/run/media/alexb/Work/TMA-Exercise/Java-Core/src/main/java/vn/com/tma/training/javacore/data/menu.json");
         OutputStream os;
         try {
-            os = new FileOutputStream(jsonOutputFile);
+            os = new FileOutputStream(Constant.MENU_FILE);
             JsonWriter writer = Json.createWriter(os);
             JsonArrayBuilder itemsBuilder = Json.createArrayBuilder();
             for (MenuItem item : data) {
                 JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-                objectBuilder.add("id", item.getId());
-                objectBuilder.add("name", item.getName());
-                objectBuilder.add("description", item.getDescription());
-                objectBuilder.add("unitPrice", item.getUnitPrice());
-                objectBuilder.add("unitType", item.getUnit());
+                objectBuilder.add(Constant.ID, item.getId());
+                objectBuilder.add(Constant.NAME, item.getName());
+                objectBuilder.add(Constant.DESCRIPTION, item.getDescription());
+                objectBuilder.add(Constant.UNIT_PRICE, item.getUnitPrice());
+                objectBuilder.add(Constant.UNIT_TYPE, item.getUnitType());
                 if (item instanceof Food) {
-                    objectBuilder.add("menuType", MenuType.FOOD.ordinal());
-                    objectBuilder.add("customType", ((Food) item).getMealType().ordinal());
-                    objectBuilder.add("isAvailable", ((Food) item).isAvailable() ? 1 : 0);
+                    objectBuilder.add(Constant.MENU_TYPE, MenuType.FOOD.ordinal());
+                    objectBuilder.add(Constant.CUSTOM_TYPE, ((Food) item).getMealType().ordinal());
+                    objectBuilder.add(Constant.IS_AVAILABLE, ((Food) item).isAvailable() ? 1 : 0);
                 } else if (item instanceof Drink) {
-                    objectBuilder.add("menuType", MenuType.DRINK.ordinal());
-                    objectBuilder.add("stock", ((Drink) item).getStock());
-                    objectBuilder.add("customType", ((Drink) item).getDrinkType().ordinal());
+                    objectBuilder.add(Constant.MENU_TYPE, MenuType.DRINK.ordinal());
+                    objectBuilder.add(Constant.STOCK, ((Drink) item).getStock());
+                    objectBuilder.add(Constant.CUSTOM_TYPE, ((Drink) item).getDrinkType().ordinal());
                 }
                 itemsBuilder.add(objectBuilder);
             }

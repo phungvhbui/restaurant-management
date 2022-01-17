@@ -1,4 +1,4 @@
-package vn.com.tma.training.restaurant.menu;
+package vn.com.tma.training.restaurant.entity.menu;
 
 import vn.com.tma.training.restaurant.enumtype.MenuType;
 
@@ -7,30 +7,30 @@ public class MenuItem {
     protected String name;
     protected String description;
     protected int unitPrice;
-    protected String unit;
+    protected String unitType;
     protected MenuType menuType;
 
-    public MenuItem(int id, String name, int unitPrice, String unit) {
+    public MenuItem(int id, String name, int unitPrice, String unitType) {
         this.id = id;
         this.name = name;
         this.unitPrice = unitPrice;
-        this.unit = unit;
+        this.unitType = unitType;
     }
 
-    public MenuItem(int id, String name, String description, int unitPrice, String unit, MenuType menuType) {
+    public MenuItem(int id, String name, String description, int unitPrice, String unitType, MenuType menuType) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.unitPrice = unitPrice;
-        this.unit = unit;
+        this.unitType = unitType;
         this.menuType = menuType;
     }
 
-    public MenuItem(String name, String description, int unitPrice, String unit, MenuType menuType) {
+    public MenuItem(String name, String description, int unitPrice, String unitType, MenuType menuType) {
         this.name = name;
         this.description = description;
         this.unitPrice = unitPrice;
-        this.unit = unit;
+        this.unitType = unitType;
         this.menuType = menuType;
     }
 
@@ -51,12 +51,16 @@ public class MenuItem {
         return "{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", price=" + unitPrice + "/" + unit + '\'' +
+                ", price=" + unitPrice + "/" + unitType + '\'' +
                 '}';
     }
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -67,7 +71,7 @@ public class MenuItem {
         return description;
     }
 
-    public String getUnit() {
-        return unit;
+    public String getUnitType() {
+        return unitType;
     }
 }

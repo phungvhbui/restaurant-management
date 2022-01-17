@@ -13,7 +13,7 @@ public enum MenuType implements MenuEnum {
         this.value = value;
     }
 
-    public static MenuType getMenuType(int value) throws InvalidEnumValueException {
+    public static MenuType getMenuType(int value) {
         for (MenuType e : MenuType.values()) {
             if (e.value == value) {
                 return e;

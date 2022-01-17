@@ -1,11 +1,11 @@
-package vn.com.tma.training.restaurant.menu;
+package vn.com.tma.training.restaurant.entity.menu;
 
 import vn.com.tma.training.restaurant.enumtype.FoodType;
 import vn.com.tma.training.restaurant.enumtype.MenuType;
 
 public class Food extends MenuItem {
-    private boolean isAvailable;
-    private FoodType mealType;
+    private final boolean isAvailable;
+    private final FoodType mealType;
 
     public Food(int id, String name, String description, int unitPrice, String unit, MenuType menuType, boolean isAvailable, FoodType mealType) {
         super(id, name, description, unitPrice, unit, menuType);
@@ -32,7 +32,7 @@ public class Food extends MenuItem {
         return "ID: " + id + "\n             "
                 + "Name: " + name + "\n             "
                 + "Description: " + description + "\n             "
-                + "Price: " + unitPrice + "/" + unit + "\n             "
+                + "Price: " + unitPrice + "/" + unitType + "\n             "
                 + "Availability: " + (isAvailable ? "yes" : "no");
     }
 }

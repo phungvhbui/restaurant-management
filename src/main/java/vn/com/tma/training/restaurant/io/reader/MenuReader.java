@@ -1,18 +1,18 @@
 package vn.com.tma.training.restaurant.io.reader;
 
+import vn.com.tma.training.restaurant.entity.menu.Drink;
+import vn.com.tma.training.restaurant.entity.menu.Food;
+import vn.com.tma.training.restaurant.entity.menu.MenuItem;
 import vn.com.tma.training.restaurant.enumtype.DrinkType;
 import vn.com.tma.training.restaurant.enumtype.FoodType;
 import vn.com.tma.training.restaurant.enumtype.MenuType;
 import vn.com.tma.training.restaurant.exception.InvalidEnumValueException;
-import vn.com.tma.training.restaurant.menu.Drink;
-import vn.com.tma.training.restaurant.menu.Food;
-import vn.com.tma.training.restaurant.menu.MenuItem;
+import vn.com.tma.training.restaurant.util.Constant;
 
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -23,30 +23,27 @@ public class MenuReader implements Reader<List<MenuItem>> {
     @Override
     public List<MenuItem> read() {
         List<MenuItem> menuItemList = new ArrayList<>();
-        File jsonInputFile = new File("/run/media/alexb/Work/TMA-Exercise/Java-Core/src/main/java/vn/com/tma/training/javacore/data/menu.json");
         InputStream is;
         try {
-            is = new FileInputStream(jsonInputFile);
-            // Create JsonReader from Json.
+            is = new FileInputStream(Constant.MENU_FILE);
             JsonReader reader = Json.createReader(is);
-            // Get the JsonObject structure from JsonReader.
             JsonArray items = reader.readArray();
             reader.close();
             for (int i = 0; i < items.size(); i++) {
                 JsonObject item = items.getJsonObject(i);
-                int id = item.getInt("id");
-                String name = item.getString("name");
-                String description = item.getString("description");
-                int unitPrice = item.getInt("unitPrice");
-                String unitType = item.getString("unitType");
-                int menuType = item.getInt("menuType");
+                int id = item.getInt(Constant.ID);
+                String name = item.getString(Constant.NAME);
+                String description = item.getString(Constant.DESCRIPTION);
+                int unitPrice = item.getInt(Constant.UNIT_PRICE);
+                String unitType = item.getString(Constant.UNIT_TYPE);
+                int menuType = item.getInt(Constant.MENU_TYPE);
                 if (menuType == MenuType.FOOD.ordinal()) {
-                    boolean isAvailable = item.getInt("isAvailable") != 0;
-                    FoodType foodType = FoodType.getFoodType(item.getInt("customType"));
+                    boolean isAvailable = item.getInt(Constant.IS_AVAILABLE) != 0;
+                    FoodType foodType = FoodType.getFoodType(item.getInt(Constant.CUSTOM_TYPE));
                     menuItemList.add(new Food(id, name, description, unitPrice, unitType, MenuType.FOOD, isAvailable, foodType));
                 } else if (menuType == MenuType.DRINK.ordinal()) {
-                    int stock = item.getInt("stock");
-                    DrinkType drinkType = DrinkType.getDrinkType(item.getInt("customType"));
+                    int stock = item.getInt(Constant.STOCK);
+                    DrinkType drinkType = DrinkType.getDrinkType(item.getInt(Constant.CUSTOM_TYPE));
                     menuItemList.add(new Drink(id, name, description, unitPrice, unitType, MenuType.DRINK, stock, drinkType));
                 }
             }

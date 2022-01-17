@@ -1,14 +1,6 @@
 package vn.com.tma.training.restaurant.util;
 
 public class Index {
-    public void setMenuIndex(int menuIndex) {
-        this.menuIndex = menuIndex;
-    }
-
-    public void setOrderIndex(int orderIndex) {
-        this.orderIndex = orderIndex;
-    }
-
     private int menuIndex;
     private int orderIndex;
 
@@ -21,7 +13,15 @@ public class Index {
         return menuIndex;
     }
 
+    public void setMenuIndex(int menuIndex) {
+        this.menuIndex = menuIndex;
+    }
+
     public int getOrderIndex() {
         return orderIndex;
+    }
+
+    public void setOrderIndex(int orderIndex) {
+        this.orderIndex = orderIndex;
     }
 }

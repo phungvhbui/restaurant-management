@@ -1,11 +1,12 @@
 package vn.com.tma.training.restaurant.enumtype;
 
 import vn.com.tma.training.restaurant.exception.InvalidEnumValueException;
+import vn.com.tma.training.restaurant.util.Constant;
 
 public enum FoodType implements MenuEnum {
-    BREAKFAST("Breakfast", 0),
-    LUNCH("Lunch", 1),
-    DINNER("Dinner", 2);
+    BREAKFAST(Constant.BREAKFAST, 0),
+    LUNCH(Constant.LUNCH, 1),
+    DINNER(Constant.DINNER, 2);
 
     private final String meal;
     private final int value;
@@ -15,13 +16,13 @@ public enum FoodType implements MenuEnum {
         this.value = value;
     }
 
-    public static FoodType getFoodType(int value) throws InvalidEnumValueException {
+    public static FoodType getFoodType(int value) {
         for (FoodType e : FoodType.values()) {
             if (e.value == value) {
                 return e;
             }
         }
-        throw new InvalidEnumValueException("Food");
+        throw new InvalidEnumValueException(Constant.FOOD);
     }
 
     public String getDisplayName() {

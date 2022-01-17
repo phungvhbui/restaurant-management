@@ -1,15 +1,15 @@
-package vn.com.tma.training.restaurant.order;
+package vn.com.tma.training.restaurant.entity.order;
 
-import vn.com.tma.training.restaurant.menu.MenuItem;
+import vn.com.tma.training.restaurant.entity.menu.MenuItem;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Order {
+    private final HashMap<MenuItem, Integer> orderedItems;
+    private final LocalDateTime orderedTime;
     private int id;
-    private HashMap<MenuItem, Integer> orderedItems;
-    private LocalDateTime orderedTime;
     private int totalPrice;
 
     public Order() {
