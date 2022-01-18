@@ -18,24 +18,26 @@ import vn.com.tma.training.restaurant.service.OrderService;
 import vn.com.tma.training.restaurant.util.Constant;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.Scanner;
 
 public class RestaurantManager {
+    private static final Logger logger = LoggerFactory.getLogger(RestaurantManager.class);
     private static MenuService menuService = null;
     private static OrderService finishedOrderService = null;
     private static OngoingOrderService ongoingOrderService = null;
     private static Scanner scanner = null;
-    private static Logger logger = LoggerFactory.getLogger(RestaurantManager.class);
-
 
     static {
         try {
+            logger.info("Start the session at " + new Date());
             menuService = new MenuService();
             finishedOrderService = new OrderService();
             ongoingOrderService = new OngoingOrderService();
             scanner = new Scanner(System.in);
         } catch (Exception e) {
             System.out.println("Initialize system failed.");
+            logger.error("Error in loading system. Forcing ending session.");
             System.exit(0);
         }
     }
@@ -46,11 +48,12 @@ public class RestaurantManager {
             System.out.print(Constant.COMMAND_PREFIX);
             command = scanner.nextLine();
         } while (isHandingCommand(command));
-
+        logger.info("Exiting the session at " + new Date());
         scanner.close();
     }
 
     private static boolean isHandingCommand(String command) {
+        logger.info("Received command: " + command);
         switch (command) {
             case Constant.HELP:
                 showHelp();
@@ -105,6 +108,7 @@ public class RestaurantManager {
                 System.out.println("Exiting...");
                 return false;
             default:
+                logger.info("Invalid command. Cancel processing");
                 System.out.println("Invalid command. Please try again.\n");
         }
         return true;

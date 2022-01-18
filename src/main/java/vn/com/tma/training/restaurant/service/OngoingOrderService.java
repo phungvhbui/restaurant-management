@@ -22,8 +22,11 @@ public class OngoingOrderService extends Service<Order> {
     @Override
     public Order get(int id) {
         try {
-            return orderList.get(id);
+            Order order = orderList.get(id);
+            logger.info("Found order with index: " + id);
+            return order;
         } catch (IndexOutOfBoundsException e) {
+            logger.warn("Order with index: " + id + " not found");
             throw new EntityNotFoundException();
         }
     }
@@ -31,10 +34,12 @@ public class OngoingOrderService extends Service<Order> {
     @Override
     public void add(Order itemToAdd) throws IOException {
         orderList.add(itemToAdd);
+        logger.info("Added item with index: " + (orderList.size() - 1));
     }
 
     @Override
     public void update(int id, Order itemToUpdate) {
+        logger.warn("Order cannot be update");
         throw new UnsupportedOperationException();
     }
 
@@ -42,7 +47,9 @@ public class OngoingOrderService extends Service<Order> {
     public void remove(int id) {
         try {
             orderList.remove(id);
+            logger.info("Removed item with index: " + id);
         } catch (IndexOutOfBoundsException e) {
+            logger.warn("Order with index: " + id + " not found");
             throw new EntityNotFoundException();
         }
     }
@@ -59,9 +66,11 @@ public class OngoingOrderService extends Service<Order> {
         for (int i = 0; i < orderList.size(); i++) {
             if (i == id) {
                 orderList.get(i).orderItem(menuItem, quantity);
+                logger.info("Added item " + menuItem.getId() + " to order with index " + id);
                 return;
             }
         }
+        logger.warn("Order with index: " + id + " not found");
         throw new EntityNotFoundException();
     }
 
@@ -69,9 +78,11 @@ public class OngoingOrderService extends Service<Order> {
         for (int i = 0; i < orderList.size(); i++) {
             if (i == id) {
                 orderList.get(i).removeItem(menuItem);
+                logger.info("Removed item " + menuItem.getId() + " from order with index " + id);
                 return;
             }
         }
+        logger.warn("Order with index: " + id + " not found");
         throw new EntityNotFoundException();
     }
 }

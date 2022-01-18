@@ -28,9 +28,11 @@ public class OrderService extends Service<Order> {
     public Order get(int id) {
         for (Order order : orderList) {
             if (order.getId() == id) {
+                logger.info("Found order with index: " + id);
                 return order;
             }
         }
+        logger.warn("Order with index: " + id + " not found");
         throw new EntityNotFoundException();
     }
 
@@ -42,15 +44,18 @@ public class OrderService extends Service<Order> {
         orderList.add(itemToAdd);
         orderWriter.write(this.orderList);
         indexWriter.write(index);
+        logger.info("Added item with index: " + itemToAdd.getId());
     }
 
     @Override
     public void update(int id, Order itemToUpdate) {
+        logger.warn("Order cannot be update");
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void remove(int id) {
+        logger.warn("Finished order cannot be remove");
         throw new UnsupportedOperationException();
     }
 
@@ -68,6 +73,7 @@ public class OrderService extends Service<Order> {
                 return;
             }
         }
+        logger.warn("Order with index: " + id + " not found");
         throw new EntityNotFoundException();
     }
 
