@@ -169,15 +169,15 @@ public class RestaurantManager {
         }
     }
 
-    public static void showDoneOrders() {
+    private static void showDoneOrders() {
         finishedOrderService.show();
     }
 
-    public static void showCurrentOrders() {
+    private static void showCurrentOrders() {
         currentOrderService.show();
     }
 
-    public static void exportOrder() {
+    private static void exportOrder() {
         try {
             System.out.print("Order id: ");
             int exportId = Integer.parseInt(scanner.nextLine());
@@ -185,6 +185,8 @@ public class RestaurantManager {
             System.out.println("Export order successfully.");
         } catch (NumberFormatException e) {
             System.out.println("Please input a valid id.");
+        } catch (IOException e) {
+            System.out.println("Error in writing to file. Please try again.");
         } catch (Exception e) {
             System.out.println("Something is wrong. Please try again.");
         }

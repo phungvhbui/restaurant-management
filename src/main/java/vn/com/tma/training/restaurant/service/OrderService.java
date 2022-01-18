@@ -2,7 +2,6 @@ package vn.com.tma.training.restaurant.service;
 
 import vn.com.tma.training.restaurant.entity.order.Order;
 import vn.com.tma.training.restaurant.exception.EntityNotFoundException;
-import vn.com.tma.training.restaurant.exception.NotYetImplementedException;
 import vn.com.tma.training.restaurant.io.reader.OrderReader;
 import vn.com.tma.training.restaurant.io.writer.OrderWriter;
 import vn.com.tma.training.restaurant.util.Index;
@@ -58,7 +57,11 @@ public class OrderService extends Service<Order> {
         }
     }
 
-    public void export(int id) {
-        throw new NotYetImplementedException();
+    public void export(int id) throws IOException {
+        for (Order order : orderList) {
+            if (order.getId() == id) {
+                orderWriter.export(order);
+            }
+        }
     }
 }

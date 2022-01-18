@@ -5,9 +5,7 @@ import vn.com.tma.training.restaurant.entity.order.Order;
 import vn.com.tma.training.restaurant.util.Constant;
 
 import javax.json.*;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,12 +25,12 @@ public class OrderWriter implements Writer<List<Order>> {
             HashMap<MenuItem, Integer> map = order.getOrderedItems();
             JsonArrayBuilder itemsBuilder = Json.createArrayBuilder();
             for (Map.Entry<MenuItem, Integer> set : map.entrySet()) {
-                MenuItem is = set.getKey();
+                MenuItem item = set.getKey();
                 JsonObjectBuilder itemBuilder = Json.createObjectBuilder();
-                itemBuilder.add(Constant.ID, is.getId());
-                itemBuilder.add(Constant.NAME, is.getName());
-                itemBuilder.add(Constant.UNIT_PRICE, is.getUnitPrice());
-                itemBuilder.add(Constant.UNIT_TYPE, is.getUnitType());
+                itemBuilder.add(Constant.ID, item.getId());
+                itemBuilder.add(Constant.NAME, item.getName());
+                itemBuilder.add(Constant.UNIT_PRICE, item.getUnitPrice());
+                itemBuilder.add(Constant.UNIT_TYPE, item.getUnitType());
                 itemBuilder.add(Constant.QUANTITY, set.getValue());
                 itemsBuilder.add(itemBuilder);
             }
@@ -42,5 +40,29 @@ public class OrderWriter implements Writer<List<Order>> {
         }
         JsonArray orders = orderArrayBuilder.build();
         writer.writeArray(orders);
+    }
+
+    public void export(Order order) throws IOException {
+        String fileName = Long.toString(System.currentTimeMillis() / 1000L);
+        FileWriter fileWriter = new FileWriter(fileName);
+        PrintWriter printWriter = new PrintWriter(fileWriter);
+        printWriter.println("'RESTAURANT' RESTAURANT");
+        printWriter.println();
+        printWriter.println("ORDER ID: " + order.getId());
+        printWriter.println("TABLE: " + order.getTableNumber());
+        printWriter.println("TIME" + order.getOrderedTime().format(Constant.DATETIME_FORMATTER));
+        printWriter.println();
+        printWriter.println("----------------------------------------------------------------------------------");
+        printWriter.printf("%-15s%-15s%-15s%n", "NAME", "UNIT PRICE", "QUANTITY");
+        HashMap<MenuItem, Integer> map = order.getOrderedItems();
+        for (Map.Entry<MenuItem, Integer> set : map.entrySet()) {
+            MenuItem item = set.getKey();
+            printWriter.printf("%-15s%-15s%-15s%n", item.getName(), item.getUnitPrice() + "/" + item.getUnitType(), set.getValue());
+        }
+        printWriter.println("----------------------------------------------------------------------------------");
+        printWriter.println("TOTAL PRICE: " + order.getTotalPrice());
+        printWriter.println();
+        printWriter.println("THANK YOU FOR USING OUR SERVICE!");
+        printWriter.close();
     }
 }
