@@ -66,7 +66,9 @@ public class Constant {
     public static final String ORDER_GET_DONE = "order get done";
     public static final String ORDER_GET_CURRENT = "order get current";
     public static final String ORDER_ADD = "order add";
-    public static final String ORDER_SAVE = "order save";
+    public static final String ORDER_REMOVE = "order remove";
+    public static final String ORDER_CANCEL = "order cancel";
+    public static final String ORDER_CHECKOUT = "order checkout";
     public static final String EXIT = "exit";
     public static final String QUIT = "quit";
 }

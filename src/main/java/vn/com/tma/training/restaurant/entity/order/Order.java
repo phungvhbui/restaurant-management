@@ -9,13 +9,14 @@ import java.util.Map;
 public class Order {
     private final HashMap<MenuItem, Integer> orderedItems;
     private final LocalDateTime orderedTime;
+    private final int tableNumber;
     private int id;
-    private int tableNumber;
     private int totalPrice;
 
     public Order(int tableNumber) {
-        orderedItems = new HashMap<>();
-        orderedTime = LocalDateTime.now();
+        this.tableNumber = tableNumber;
+        this.orderedItems = new HashMap<>();
+        this.orderedTime = LocalDateTime.now();
         calculateOrder();
     }
 
@@ -33,6 +34,11 @@ public class Order {
             orderedItems.replace(item, orderedItems.get(item) + quantity);
         }
         orderedItems.put(item, quantity);
+        calculateOrder();
+    }
+
+    public void removeItem(MenuItem item) {
+        orderedItems.remove(item);
         calculateOrder();
     }
 
