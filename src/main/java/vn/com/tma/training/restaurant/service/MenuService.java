@@ -16,11 +16,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * MenuService handles all operation with the list of MenuItem
+ */
 public class MenuService extends Service<MenuItem> {
     private static final Logger logger = LoggerFactory.getLogger(MenuService.class);
     private final List<MenuItem> menuItemList;
     private final MenuWriter menuWriter;
 
+    /**
+     * Default constructor without any params.
+     * This constructor will read the file to initialize the list of MenuItem.
+     *
+     * @throws IOException If there is something wrong with files
+     */
     public MenuService() throws IOException {
         super();
         MenuReader menuReader = new MenuReader();
@@ -29,6 +38,13 @@ public class MenuService extends Service<MenuItem> {
         logger.info("Initialized Menu service");
     }
 
+    /**
+     * Gets the MenuItem by identifier.
+     *
+     * @param id The identifier of the MenuItem
+     * @return The MenuItem found
+     * @throws EntityNotFoundException If there is no MenuItem matched the id
+     */
     @Override
     public MenuItem get(int id) {
         for (MenuItem item : menuItemList) {
@@ -41,6 +57,12 @@ public class MenuService extends Service<MenuItem> {
         throw new EntityNotFoundException();
     }
 
+    /**
+     * Adds new MenuItem.
+     *
+     * @param itemToAdd The MenuItem to add
+     * @throws IOException If there is something wrong with files
+     */
     @Override
     public void add(MenuItem itemToAdd) throws IOException {
         Index index = indexReader.read();
@@ -52,6 +74,14 @@ public class MenuService extends Service<MenuItem> {
         logger.info("Added item with id: " + itemToAdd.getId());
     }
 
+    /**
+     * Updates a MenuItem.
+     *
+     * @param id           The identifier of the MenuItem
+     * @param itemToUpdate The MenuItem to update
+     * @throws IOException             If there is something wrong with files
+     * @throws EntityNotFoundException If there is no MenuItem matched the id
+     */
     @Override
     public void update(int id, MenuItem itemToUpdate) throws IOException {
         for (int i = 0; i < menuItemList.size(); i++) {
@@ -67,6 +97,13 @@ public class MenuService extends Service<MenuItem> {
         throw new EntityNotFoundException();
     }
 
+    /**
+     * Deletes a MenuItem.
+     *
+     * @param id The identifier of the MenuItem
+     * @throws IOException             If there is something wrong with files
+     * @throws EntityNotFoundException If there is no MenuItem matched the id
+     */
     @Override
     public void remove(int id) throws IOException {
         for (int i = 0; i < menuItemList.size(); i++) {
@@ -81,6 +118,9 @@ public class MenuService extends Service<MenuItem> {
         throw new EntityNotFoundException();
     }
 
+    /**
+     * Prints the list of MenuItem to console.
+     */
     @Override
     public void show() {
         List<MenuItem> items = new ArrayList<>(this.menuItemList);
@@ -108,6 +148,14 @@ public class MenuService extends Service<MenuItem> {
         System.out.println();
     }
 
+    /**
+     * Reduces the stock of Drink when ordered
+     *
+     * @param itemId  The id of the MenuItem
+     * @param quality The ordered quantity
+     * @throws InvalidAmountException  If there is not enough stock to order
+     * @throws EntityNotFoundException If there is no MenuItem matched the id
+     */
     public void reduceStock(int itemId, int quality) {
         for (MenuItem item : menuItemList) {
             if (item.getId() == itemId) {
@@ -126,6 +174,11 @@ public class MenuService extends Service<MenuItem> {
         throw new EntityNotFoundException();
     }
 
+    /**
+     * Syncs the list with the file by writing it to file
+     *
+     * @throws IOException If there is something wrong with files
+     */
     public void sync() throws IOException {
         menuWriter.write(this.menuItemList);
     }

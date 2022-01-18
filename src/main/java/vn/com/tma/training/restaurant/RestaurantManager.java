@@ -12,19 +12,23 @@ import vn.com.tma.training.restaurant.enumtype.MealType;
 import vn.com.tma.training.restaurant.exception.EntityNotFoundException;
 import vn.com.tma.training.restaurant.exception.InvalidAmountException;
 import vn.com.tma.training.restaurant.exception.InvalidInputException;
+import vn.com.tma.training.restaurant.service.FinishedOrderService;
 import vn.com.tma.training.restaurant.service.MenuService;
 import vn.com.tma.training.restaurant.service.OngoingOrderService;
-import vn.com.tma.training.restaurant.service.OrderService;
 import vn.com.tma.training.restaurant.util.Constant;
 
 import java.io.IOException;
 import java.util.Date;
 import java.util.Scanner;
 
+/**
+ * RestaurantManager is the main class of the program.
+ * This class will handle user input and process the commands using services.
+ */
 public class RestaurantManager {
     private static final Logger logger = LoggerFactory.getLogger(RestaurantManager.class);
     private static MenuService menuService = null;
-    private static OrderService finishedOrderService = null;
+    private static FinishedOrderService finishedOrderService = null;
     private static OngoingOrderService ongoingOrderService = null;
     private static Scanner scanner = null;
 
@@ -32,7 +36,7 @@ public class RestaurantManager {
         try {
             logger.info("Start the session at " + new Date());
             menuService = new MenuService();
-            finishedOrderService = new OrderService();
+            finishedOrderService = new FinishedOrderService();
             ongoingOrderService = new OngoingOrderService();
             scanner = new Scanner(System.in);
         } catch (Exception e) {
@@ -322,6 +326,12 @@ public class RestaurantManager {
         }
     }
 
+    /**
+     * Handles user input to create/update a MenuItem
+     *
+     * @return The MenuItem created
+     * @throws InvalidInputException If user input mismatched the requirements
+     */
     private static MenuItem inputItem() {
         MenuItem item = null;
         try {
