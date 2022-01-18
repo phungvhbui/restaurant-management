@@ -12,9 +12,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * OrderWriter writes the list of Order
+ */
 public class OrderWriter implements Writer<List<Order>> {
     private static final Logger logger = LoggerFactory.getLogger(OrderWriter.class);
 
+    /**
+     * Writes the list of Order that passed in to file
+     *
+     * @param data The list of Order that needs to be saved
+     * @throws IOException If there is something wrong when writing file
+     */
     @Override
     public void write(List<Order> data) throws IOException {
         logger.info("Writing orders to file " + Constant.ORDER_FILE.getAbsolutePath());
@@ -53,6 +62,12 @@ public class OrderWriter implements Writer<List<Order>> {
         }
     }
 
+    /**
+     * Writes a specific order to file with defined format
+     *
+     * @param order The order that needs to be exported
+     * @throws IOException If there is something wrong when writing file
+     */
     public void export(Order order) throws IOException {
         try {
             String fileName = System.currentTimeMillis() / 1000L + ".txt";

@@ -4,25 +4,27 @@ import vn.com.tma.training.restaurant.exception.InvalidEnumValueException;
 import vn.com.tma.training.restaurant.util.Constant;
 
 /**
- * DrinkType defines the type of drink, which can be Soft drink or Alcohol.
- * SOFT_DRINK with value 0 represent type Soft drink
- * ALCOHOL with value 1 represent type Alcohol
+ * MealType defines the meal type of dish, which can be Breakfast, Lunch or Dinner.
+ * BREAKFAST with value 0 represent type Breakfast
+ * LUNCH with value 1 represent type Lunch
+ * DINNER with value 1 represent type Dinner
  */
-public enum DrinkType {
-    SOFT_DRINK(Constant.SOFT_DRINK, 0),
-    ALCOHOL(Constant.ALCOHOL, 1);
+public enum MealType {
+    BREAKFAST(Constant.BREAKFAST, 0),
+    LUNCH(Constant.LUNCH, 1),
+    DINNER(Constant.DINNER, 2);
 
-    private final String label;
+    private final String meal;
     private final int value;
 
     /**
      * Constructor that set the label and value of a drink type.
      *
-     * @param label The label of the drink type
-     * @param value The value of the drink type
+     * @param meal  The meal type of the item type
+     * @param value The value of the item type
      */
-    DrinkType(String label, int value) {
-        this.label = label;
+    MealType(String meal, int value) {
+        this.meal = meal;
         this.value = value;
     }
 
@@ -33,17 +35,17 @@ public enum DrinkType {
      * @return The enum matched the value
      * @throws InvalidEnumValueException If there is no enum matched that value
      */
-    public static DrinkType getDrinkType(int value) {
-        for (DrinkType e : DrinkType.values()) {
+    public static MealType getFoodType(int value) {
+        for (MealType e : MealType.values()) {
             if (e.value == value) {
                 return e;
             }
         }
-        throw new InvalidEnumValueException(Constant.DRINK);
+        throw new InvalidEnumValueException(Constant.DISH);
     }
 
     @Override
     public String toString() {
-        return label;
+        return meal;
     }
 }

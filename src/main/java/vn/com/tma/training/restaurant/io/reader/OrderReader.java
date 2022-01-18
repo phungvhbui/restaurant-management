@@ -12,7 +12,6 @@ import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDateTime;
@@ -20,11 +19,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * OrderReader reads the list of Order
+ */
 public class OrderReader implements Reader<List<Order>> {
     private static final Logger logger = LoggerFactory.getLogger(MenuReader.class);
 
+    /**
+     * Reads the order file and returns the list of Order
+     *
+     * @return The list of Order
+     * @throws IOException               If there is something wrong when reading file
+     * @throws InvalidEnumValueException If there is no enum match with the type in file
+     */
     @Override
-    public List<Order> read() throws InvalidEnumValueException, FileNotFoundException {
+    public List<Order> read() throws IOException, InvalidEnumValueException {
         logger.info("Reading orders from file " + Constant.ORDER_FILE.getAbsolutePath());
 
         List<Order> orderList = new ArrayList<>();
@@ -59,7 +68,7 @@ public class OrderReader implements Reader<List<Order>> {
             logger.error(e.toString());
             throw e;
         }
-        
+
         return orderList;
     }
 }

@@ -2,8 +2,8 @@ package vn.com.tma.training.restaurant.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import vn.com.tma.training.restaurant.entity.menu.Dish;
 import vn.com.tma.training.restaurant.entity.menu.Drink;
-import vn.com.tma.training.restaurant.entity.menu.Food;
 import vn.com.tma.training.restaurant.entity.menu.MenuItem;
 import vn.com.tma.training.restaurant.exception.EntityNotFoundException;
 import vn.com.tma.training.restaurant.exception.InvalidAmountException;
@@ -88,17 +88,17 @@ public class MenuService extends Service<MenuItem> {
         String mainTypeMenu = "";
         String subTypeMenu = "";
         for (MenuItem item : items) {
-            if (!mainTypeMenu.equals(item.getMenuType().getDisplayName())) {
-                mainTypeMenu = item.getMenuType().getDisplayName();
+            if (!mainTypeMenu.equals(item.getMenuType().toString())) {
+                mainTypeMenu = item.getMenuType().toString();
                 System.out.println(mainTypeMenu);
             }
 
-            if ((item instanceof Food && !subTypeMenu.equals(((Food) item).getMealType().getDisplayName())) ||
-                    (item instanceof Drink && !subTypeMenu.equals(((Drink) item).getDrinkType().getDisplayName()))) {
-                if (item instanceof Food) {
-                    subTypeMenu = ((Food) item).getMealType().getDisplayName();
+            if ((item instanceof Dish && !subTypeMenu.equals(((Dish) item).getMealType().toString())) ||
+                    (item instanceof Drink && !subTypeMenu.equals(((Drink) item).getDrinkType().toString()))) {
+                if (item instanceof Dish) {
+                    subTypeMenu = ((Dish) item).getMealType().toString();
                 } else {
-                    subTypeMenu = ((Drink) item).getDrinkType().getDisplayName();
+                    subTypeMenu = ((Drink) item).getDrinkType().toString();
                 }
                 System.out.println("    " + subTypeMenu);
             }

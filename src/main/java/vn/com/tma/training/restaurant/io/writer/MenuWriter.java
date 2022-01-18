@@ -2,10 +2,10 @@ package vn.com.tma.training.restaurant.io.writer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import vn.com.tma.training.restaurant.entity.menu.Dish;
 import vn.com.tma.training.restaurant.entity.menu.Drink;
-import vn.com.tma.training.restaurant.entity.menu.Food;
 import vn.com.tma.training.restaurant.entity.menu.MenuItem;
-import vn.com.tma.training.restaurant.enumtype.MenuType;
+import vn.com.tma.training.restaurant.enumtype.ItemType;
 import vn.com.tma.training.restaurant.util.Constant;
 
 import javax.json.*;
@@ -14,9 +14,18 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 
+/**
+ * MenuWriter writes the list of MenuItem
+ */
 public class MenuWriter implements Writer<List<MenuItem>> {
     private static final Logger logger = LoggerFactory.getLogger(MenuWriter.class);
 
+    /**
+     * Writes the list of MenuItem that passed in to file
+     *
+     * @param data The list of MenuItem that needs to be saved
+     * @throws IOException If there is something wrong when writing file
+     */
     @Override
     public void write(List<MenuItem> data) throws IOException {
         logger.info("Writing menu to file " + Constant.MENU_FILE.getAbsolutePath());
@@ -33,12 +42,12 @@ public class MenuWriter implements Writer<List<MenuItem>> {
                 objectBuilder.add(Constant.DESCRIPTION, item.getDescription());
                 objectBuilder.add(Constant.UNIT_PRICE, item.getUnitPrice());
                 objectBuilder.add(Constant.UNIT_TYPE, item.getUnitType());
-                if (item instanceof Food) {
-                    objectBuilder.add(Constant.MENU_TYPE, MenuType.FOOD.ordinal());
-                    objectBuilder.add(Constant.CUSTOM_TYPE, ((Food) item).getMealType().ordinal());
-                    objectBuilder.add(Constant.IS_AVAILABLE, ((Food) item).isAvailable() ? 1 : 0);
+                if (item instanceof Dish) {
+                    objectBuilder.add(Constant.ITEM_TYPE, ItemType.DISH.ordinal());
+                    objectBuilder.add(Constant.CUSTOM_TYPE, ((Dish) item).getMealType().ordinal());
+                    objectBuilder.add(Constant.IS_AVAILABLE, ((Dish) item).isAvailable() ? 1 : 0);
                 } else if (item instanceof Drink) {
-                    objectBuilder.add(Constant.MENU_TYPE, MenuType.DRINK.ordinal());
+                    objectBuilder.add(Constant.ITEM_TYPE, ItemType.DRINK.ordinal());
                     objectBuilder.add(Constant.STOCK, ((Drink) item).getStock());
                     objectBuilder.add(Constant.CUSTOM_TYPE, ((Drink) item).getDrinkType().ordinal());
                 }

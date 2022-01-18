@@ -3,10 +3,13 @@ package vn.com.tma.training.restaurant.util;
 import java.io.File;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Constant class holds every constant appeared in the program
+ */
 public class Constant {
     // Enum name
     public static final String MENU = "Menu";
-    public static final String FOOD = "Food";
+    public static final String DISH = "Dish";
     public static final String BREAKFAST = "Breakfast";
     public static final String LUNCH = "Lunch";
     public static final String DINNER = "Dinner";
@@ -24,7 +27,7 @@ public class Constant {
     public static final String QUANTITY = "quantity";
     public static final String PRICE = "price";
     public static final String DESCRIPTION = "description";
-    public static final String MENU_TYPE = "menuType";
+    public static final String ITEM_TYPE = "itemType";
     public static final String IS_AVAILABLE = "isAvailable";
     public static final String CUSTOM_TYPE = "customType";
     public static final String STOCK = "stock";

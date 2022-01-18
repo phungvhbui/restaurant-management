@@ -4,25 +4,24 @@ import vn.com.tma.training.restaurant.exception.InvalidEnumValueException;
 import vn.com.tma.training.restaurant.util.Constant;
 
 /**
- * DrinkType defines the type of drink, which can be Soft drink or Alcohol.
- * SOFT_DRINK with value 0 represent type Soft drink
- * ALCOHOL with value 1 represent type Alcohol
+ * ItemType defines the type of item in the menu, which can be a Dish or a Drink.
+ * DISH with value 0 represent type Dish
+ * DRINK with value 1 represent type Drink
  */
-public enum DrinkType {
-    SOFT_DRINK(Constant.SOFT_DRINK, 0),
-    ALCOHOL(Constant.ALCOHOL, 1);
-
-    private final String label;
+public enum ItemType {
+    DISH(Constant.DISH, 0),
+    DRINK(Constant.DRINK, 1);
+    private final String type;
     private final int value;
 
     /**
      * Constructor that set the label and value of a drink type.
      *
-     * @param label The label of the drink type
-     * @param value The value of the drink type
+     * @param type  The type of the item type
+     * @param value The value of the item type
      */
-    DrinkType(String label, int value) {
-        this.label = label;
+    ItemType(String type, int value) {
+        this.type = type;
         this.value = value;
     }
 
@@ -33,17 +32,18 @@ public enum DrinkType {
      * @return The enum matched the value
      * @throws InvalidEnumValueException If there is no enum matched that value
      */
-    public static DrinkType getDrinkType(int value) {
-        for (DrinkType e : DrinkType.values()) {
+    public static ItemType getMenuType(int value) {
+        for (ItemType e : ItemType.values()) {
             if (e.value == value) {
                 return e;
             }
         }
-        throw new InvalidEnumValueException(Constant.DRINK);
+        throw new InvalidEnumValueException(Constant.MENU);
     }
 
     @Override
     public String toString() {
-        return label;
+        return type;
     }
 }
+

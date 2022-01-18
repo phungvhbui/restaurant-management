@@ -12,9 +12,18 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
+/**
+ * IndexWriter writes the index of the files
+ */
 public class IndexWriter implements Writer<Index> {
     private static final Logger logger = LoggerFactory.getLogger(IndexWriter.class);
 
+    /**
+     * Writes the index that passed in to file
+     *
+     * @param data The index that needs to be saved
+     * @throws IOException If there is something wrong when writing file
+     */
     @Override
     public void write(Index data) throws IOException {
         logger.info("Writing indexes to file " + Constant.INDEX_FILE.getAbsolutePath());

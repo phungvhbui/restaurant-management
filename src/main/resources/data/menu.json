@@ -5,7 +5,7 @@
     "description": "This simple staple consisting of a salty broth, fresh rice noodles, a sprinkling of herbs and chicken or beef, features predominately in the local diet -- and understandably so",
     "unitPrice": 50000,
     "unitType": "bowl",
-    "menuType": 0,
+    "itemType": 0,
     "customType": 0,
     "isAvailable": 1
   },
@@ -15,7 +15,7 @@
     "description": "This namesake alley is home to Cha Ca La Vong, which serves sizzling chunks of fish seasoned with garlic, ginger, turmeric and dill on a hot pan tableside",
     "unitPrice": 40000,
     "unitType": "dish",
-    "menuType": 0,
+    "itemType": 0,
     "customType": 1,
     "isAvailable": 0
   },
@@ -25,7 +25,7 @@
     "description": "A good banh xeo is a crispy crepe bulging with pork, shrimp, and bean sprouts, plus the garnish of fresh herbs that are characteristic of most authentic Vietnamese dishes",
     "unitPrice": 40000,
     "unitType": "dish",
-    "menuType": 0,
+    "itemType": 0,
     "customType": 2,
     "isAvailable": 1
   },
@@ -35,7 +35,7 @@
     "description": "The crispy shell with a soft veggie and meat filling dunked in a tangy sauce gets the gastronomic juices flowing before a main course. In the north these parcels go by the name nem ran while southerners call them cha gio",
     "unitPrice": 50000,
     "unitType": "dish",
-    "menuType": 0,
+    "itemType": 0,
     "customType": 1,
     "isAvailable": 1
   },
@@ -45,7 +45,7 @@
     "description": "Central Vietnam's take on noodles caters to carnivores with its meaty broth and piles of beef and pork",
     "unitPrice": 45000,
     "unitType": "bowl",
-    "menuType": 0,
+    "itemType": 0,
     "customType": 0,
     "isAvailable": 1
   },
@@ -55,7 +55,7 @@
     "description": "KFC may be everywhere in Vietnam these days, but skip the fast food for the local version. Honey marinated then grilled over large flaming barbecues, the chicken legs, wings and feet served are unusually tender, while the skin stays crispy but not dry",
     "unitPrice": 60000,
     "unitType": "dish",
-    "menuType": 0,
+    "itemType": 0,
     "customType": 2,
     "isAvailable": 0
   },
@@ -65,7 +65,7 @@
     "description": "A can of Coke",
     "unitPrice": 30000,
     "unitType": "can",
-    "menuType": 1,
+    "itemType": 1,
     "stock": 20,
     "customType": 0
   },
@@ -75,7 +75,7 @@
     "description": "A can of Pepsi",
     "unitPrice": 12000,
     "unitType": "can",
-    "menuType": 1,
+    "itemType": 1,
     "stock": 15,
     "customType": 0
   },
@@ -85,7 +85,7 @@
     "description": "A can of 7Up",
     "unitPrice": 12000,
     "unitType": "can",
-    "menuType": 1,
+    "itemType": 1,
     "stock": 32,
     "customType": 0
   },
@@ -95,7 +95,7 @@
     "description": "A bottle of red wine",
     "unitPrice": 250000,
     "unitType": "bottle",
-    "menuType": 1,
+    "itemType": 1,
     "stock": 4,
     "customType": 1
   },
@@ -105,7 +105,7 @@
     "description": "A bottle of Vodka HN",
     "unitPrice": 150000,
     "unitType": "bottle",
-    "menuType": 1,
+    "itemType": 1,
     "stock": 10,
     "customType": 1
   },
@@ -115,7 +115,7 @@
     "description": "A deep, reddish broth made from tomatoes and pulverized crab, poured over white rice noodles, topped with marinated snails and crab cake, and garnished with fresh herbs and leaves, bun rieu cua oc is one of those Vietnamese soups that jumps out at you from the bowl",
     "unitPrice": 60000,
     "unitType": "bowl",
-    "menuType": 0,
+    "itemType": 0,
     "customType": 2,
     "isAvailable": 1
   },
@@ -125,7 +125,7 @@
     "description": "A can of Sting",
     "unitPrice": 13000,
     "unitType": "can",
-    "menuType": 1,
+    "itemType": 1,
     "stock": 5,
     "customType": 0
   },
@@ -135,7 +135,7 @@
     "description": "A can of Tiger beer",
     "unitPrice": 15000,
     "unitType": "can",
-    "menuType": 1,
+    "itemType": 1,
     "stock": 28,
     "customType": 1
   },
@@ -145,7 +145,7 @@
     "description": "A can of Red bull",
     "unitPrice": 13000,
     "unitType": "can",
-    "menuType": 1,
+    "itemType": 1,
     "stock": 12,
     "customType": 0
   }
