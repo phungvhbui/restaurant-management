@@ -4,7 +4,6 @@ import vn.com.tma.training.restaurant.entity.menu.Drink;
 import vn.com.tma.training.restaurant.entity.menu.Food;
 import vn.com.tma.training.restaurant.entity.menu.MenuItem;
 import vn.com.tma.training.restaurant.exception.EntityNotFoundException;
-import vn.com.tma.training.restaurant.exception.NotYetImplementedException;
 import vn.com.tma.training.restaurant.io.reader.MenuReader;
 import vn.com.tma.training.restaurant.io.writer.MenuWriter;
 import vn.com.tma.training.restaurant.util.Index;
@@ -96,7 +95,7 @@ public class MenuService extends Service<MenuItem> {
         }
     }
 
-    public void export() {
-        throw new NotYetImplementedException();
+    public void sync() throws IOException {
+        menuWriter.write(this.menuItemList);
     }
 }

@@ -63,5 +63,10 @@ public class OrderService extends Service<Order> {
                 orderWriter.export(order);
             }
         }
+        throw new EntityNotFoundException();
+    }
+
+    public void sync() throws IOException {
+        orderWriter.write(this.orderList);
     }
 }

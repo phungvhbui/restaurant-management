@@ -44,7 +44,7 @@ public class OrderWriter implements Writer<List<Order>> {
 
     public void export(Order order) throws IOException {
         String fileName = Long.toString(System.currentTimeMillis() / 1000L);
-        FileWriter fileWriter = new FileWriter(fileName);
+        FileWriter fileWriter = new FileWriter(fileName + ".txt");
         PrintWriter printWriter = new PrintWriter(fileWriter);
         printWriter.println("'RESTAURANT' RESTAURANT");
         printWriter.println();

@@ -55,9 +55,6 @@ public class RestaurantManager {
             case Constant.MENU_SHOW:
                 showMenu();
                 break;
-            case Constant.MENU_EXPORT:
-                exportMenu();
-                break;
             case Constant.MENU_ADD:
                 addItemToMenu();
                 break;
@@ -70,7 +67,7 @@ public class RestaurantManager {
             case Constant.ORDER_SHOW_DONE:
                 showDoneOrders();
                 break;
-            case Constant.ORDER_SHOW_CURRENT:
+            case Constant.ORDER_SHOW_ONGOING:
                 showCurrentOrders();
                 break;
             case Constant.ORDER_EXPORT:
@@ -82,7 +79,7 @@ public class RestaurantManager {
             case Constant.ORDER_GET_DONE:
                 getDoneOrder();
                 break;
-            case Constant.ORDER_GET_CURRENT:
+            case Constant.ORDER_GET_ONGOING:
                 getCurrentOrder();
                 break;
             case Constant.ORDER_ADD:
@@ -96,6 +93,9 @@ public class RestaurantManager {
                 break;
             case Constant.ORDER_CHECKOUT:
                 checkoutOrder();
+                break;
+            case Constant.RECOVER:
+                recover();
                 break;
             case Constant.EXIT:
             case Constant.QUIT:
@@ -113,10 +113,6 @@ public class RestaurantManager {
 
     private static void showMenu() {
         menuService.show();
-    }
-
-    private static void exportMenu() {
-        menuService.export();
     }
 
     private static void addItemToMenu() {
@@ -185,6 +181,8 @@ public class RestaurantManager {
             System.out.println("Export order successfully.");
         } catch (NumberFormatException e) {
             System.out.println("Please input a valid id.");
+        } catch (EntityNotFoundException e) {
+            System.out.println("Order does not exist.");
         } catch (IOException e) {
             System.out.println("Error in writing to file. Please try again.");
         } catch (Exception e) {
@@ -296,6 +294,17 @@ public class RestaurantManager {
             System.out.println("Order does not exist.");
         } catch (IOException e) {
             System.out.println("Error in writing to file. You can run `recover` to sync the program and the file.");
+        } catch (Exception e) {
+            System.out.println("Something is wrong. Please try again.");
+        }
+    }
+
+    private static void recover() {
+        try {
+            menuService.sync();
+            finishedOrderService.sync();
+        } catch (IOException e) {
+            System.out.println("Error in writing to file.");
         } catch (Exception e) {
             System.out.println("Something is wrong. Please try again.");
         }
