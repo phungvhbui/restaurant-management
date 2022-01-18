@@ -4,6 +4,7 @@ import vn.com.tma.training.restaurant.entity.menu.Drink;
 import vn.com.tma.training.restaurant.entity.menu.Food;
 import vn.com.tma.training.restaurant.entity.menu.MenuItem;
 import vn.com.tma.training.restaurant.exception.EntityNotFoundException;
+import vn.com.tma.training.restaurant.exception.InvalidAmountException;
 import vn.com.tma.training.restaurant.io.reader.MenuReader;
 import vn.com.tma.training.restaurant.io.writer.MenuWriter;
 import vn.com.tma.training.restaurant.util.Index;
@@ -76,13 +77,11 @@ public class MenuService extends Service<MenuItem> {
         String mainTypeMenu = "";
         String subTypeMenu = "";
         for (MenuItem item : items) {
-            // To print menu type
             if (!mainTypeMenu.equals(item.getMenuType().getDisplayName())) {
                 mainTypeMenu = item.getMenuType().getDisplayName();
                 System.out.println(mainTypeMenu);
             }
 
-            // To print sub menu type
             if ((item instanceof Food && !subTypeMenu.equals(((Food) item).getMealType().getDisplayName())) ||
                     (item instanceof Drink && !subTypeMenu.equals(((Drink) item).getDrinkType().getDisplayName()))) {
                 if (item instanceof Food) {
@@ -95,6 +94,21 @@ public class MenuService extends Service<MenuItem> {
 
             System.out.println("        " + item);
         }
+        System.out.println();
+    }
+
+    public void reduceStock(int itemId, int quality) {
+        for (MenuItem item : menuItemList) {
+            if (item.getId() == itemId && item instanceof Drink) {
+                Drink drink = (Drink) item;
+                if (drink.getStock() < quality) {
+                    throw new InvalidAmountException();
+                }
+                drink.setStock(drink.getStock() - quality);
+                return;
+            }
+        }
+        throw new EntityNotFoundException();
     }
 
     public void sync() throws IOException {

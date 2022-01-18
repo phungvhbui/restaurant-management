@@ -8,6 +8,7 @@ import vn.com.tma.training.restaurant.enumtype.DrinkType;
 import vn.com.tma.training.restaurant.enumtype.FoodType;
 import vn.com.tma.training.restaurant.enumtype.MenuType;
 import vn.com.tma.training.restaurant.exception.EntityNotFoundException;
+import vn.com.tma.training.restaurant.exception.InvalidAmountException;
 import vn.com.tma.training.restaurant.exception.InvalidEnumValueException;
 import vn.com.tma.training.restaurant.exception.InvalidInputException;
 import vn.com.tma.training.restaurant.service.CurrentOrderService;
@@ -37,7 +38,6 @@ public class RestaurantManager {
     }
 
     public static void main(String[] args) {
-        // Menu
         String command;
         do {
             System.out.print(Constant.COMMAND_PREFIX);
@@ -239,10 +239,13 @@ public class RestaurantManager {
             MenuItem menuItem = menuService.get(itemId);
             System.out.print("Quantity: ");
             int quantity = Integer.parseInt(scanner.nextLine());
+            menuService.reduceStock(itemId, quantity);
             currentOrderService.addItemToOrder(orderId, menuItem, quantity);
             System.out.println("Order item successfully.\n");
         } catch (NumberFormatException e) {
             System.out.println("Please input a valid id and/or quality.\n");
+        } catch (InvalidAmountException e) {
+            System.out.println("There is not enough stock to order.\n");
         } catch (EntityNotFoundException e) {
             System.out.println("Item/Order does not exist.\n");
         } catch (Exception e) {
@@ -290,6 +293,7 @@ public class RestaurantManager {
             Order order = currentOrderService.get(orderId);
             finishedOrderService.add(order);
             currentOrderService.remove(orderId);
+            menuService.sync();
             System.out.println("Checkout order successfully.\n");
         } catch (EntityNotFoundException e) {
             System.out.println("Order does not exist.\n");

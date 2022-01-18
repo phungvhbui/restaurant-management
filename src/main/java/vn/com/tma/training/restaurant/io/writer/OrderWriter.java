@@ -43,7 +43,7 @@ public class OrderWriter implements Writer<List<Order>> {
     }
 
     public void export(Order order) throws IOException {
-        String fileName = Long.toString(System.currentTimeMillis() / 1000L);
+        String fileName = System.currentTimeMillis() / 1000L + ".txt";
         FileWriter fileWriter = new FileWriter(fileName + ".txt");
         PrintWriter printWriter = new PrintWriter(fileWriter);
         printWriter.println("'RESTAURANT' RESTAURANT");
@@ -64,5 +64,6 @@ public class OrderWriter implements Writer<List<Order>> {
         printWriter.println();
         printWriter.println("THANK YOU FOR USING OUR SERVICE!");
         printWriter.close();
+        System.out.println("Exported to file " + fileName);
     }
 }
