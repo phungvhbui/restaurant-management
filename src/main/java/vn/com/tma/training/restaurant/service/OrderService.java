@@ -53,7 +53,7 @@ public class OrderService extends Service<Order> {
     @Override
     public void show() {
         for (Order order : orderList) {
-            System.out.println(order);
+            System.out.println(order.toStringForList());
         }
     }
 
@@ -61,6 +61,7 @@ public class OrderService extends Service<Order> {
         for (Order order : orderList) {
             if (order.getId() == id) {
                 orderWriter.export(order);
+                return;
             }
         }
         throw new EntityNotFoundException();

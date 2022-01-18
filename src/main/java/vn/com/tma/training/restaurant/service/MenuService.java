@@ -50,10 +50,11 @@ public class MenuService extends Service<MenuItem> {
             if (menuItemList.get(i).getId() == id) {
                 itemToUpdate.setId(id);
                 menuItemList.set(i, itemToUpdate);
-                break;
+                menuWriter.write(this.menuItemList);
+                return;
             }
         }
-        menuWriter.write(this.menuItemList);
+        throw new EntityNotFoundException();
     }
 
     @Override
@@ -61,10 +62,11 @@ public class MenuService extends Service<MenuItem> {
         for (int i = 0; i < menuItemList.size(); i++) {
             if (menuItemList.get(i).getId() == id) {
                 menuItemList.remove(i);
-                break;
+                menuWriter.write(this.menuItemList);
+                return;
             }
         }
-        menuWriter.write(this.menuItemList);
+        throw new EntityNotFoundException();
     }
 
     @Override

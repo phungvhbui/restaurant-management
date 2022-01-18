@@ -102,7 +102,7 @@ public class RestaurantManager {
                 System.out.println("Exiting...");
                 return false;
             default:
-                System.out.println("Invalid command. Please try again.");
+                System.out.println("Invalid command. Please try again.\n");
         }
         return true;
     }
@@ -119,13 +119,13 @@ public class RestaurantManager {
         try {
             MenuItem itemToAdd = inputItem();
             menuService.add(itemToAdd);
-            System.out.println("Add item successfully.");
+            System.out.println("Add item successfully.\n");
         } catch (InvalidInputException e) {
-            System.out.println("Invalid item. Please check your input.");
+            System.out.println("Invalid item. Please check your input.\n");
         } catch (IOException e) {
-            System.out.println("Error in writing to file. You can run `recover` to sync the program and the file.");
+            System.out.println("Error in writing to file. You can run `recover` to sync the program and the file.\n");
         } catch (Exception e) {
-            System.out.println("Something is wrong. Please try again.");
+            System.out.println("Something is wrong. Please try again.\n");
         }
     }
 
@@ -136,17 +136,17 @@ public class RestaurantManager {
             menuService.get(editId);
             MenuItem newItemToUpdate = inputItem();
             menuService.update(editId, newItemToUpdate);
-            System.out.println("Update item successfully.");
+            System.out.println("Update item successfully.\n");
         } catch (NumberFormatException e) {
-            System.out.println("Please input a valid id.");
+            System.out.println("Please input a valid id.\n");
         } catch (EntityNotFoundException e) {
-            System.out.println("Item does not exist.");
+            System.out.println("Item does not exist.\n");
         } catch (InvalidInputException e) {
-            System.out.println("Invalid item. Please check your input.");
+            System.out.println("Invalid item. Please check your input.\n");
         } catch (IOException e) {
-            System.out.println("Error in writing to file. You can run `recover` to sync the program and the file.");
+            System.out.println("Error in writing to file. You can run `recover` to sync the program and the file.\n");
         } catch (Exception e) {
-            System.out.println("Something is wrong. Please try again.");
+            System.out.println("Something is wrong. Please try again.\n");
         }
     }
 
@@ -155,13 +155,13 @@ public class RestaurantManager {
             System.out.print("Item id: ");
             int deleteId = Integer.parseInt(scanner.nextLine());
             menuService.remove(deleteId);
-            System.out.println("Remove item successfully.");
+            System.out.println("Remove item successfully.\n");
         } catch (NumberFormatException e) {
-            System.out.println("Please input a valid id.");
+            System.out.println("Please input a valid id.\n");
         } catch (IOException e) {
-            System.out.println("Error in writing to file. You can run `recover` to sync the program and the file.");
+            System.out.println("Error in writing to file. You can run `recover` to sync the program and the file.\n");
         } catch (Exception e) {
-            System.out.println("Something is wrong. Please try again.");
+            System.out.println("Something is wrong. Please try again.\n");
         }
     }
 
@@ -178,15 +178,15 @@ public class RestaurantManager {
             System.out.print("Order id: ");
             int exportId = Integer.parseInt(scanner.nextLine());
             finishedOrderService.export(exportId);
-            System.out.println("Export order successfully.");
+            System.out.println("Export order successfully.\n");
         } catch (NumberFormatException e) {
-            System.out.println("Please input a valid id.");
+            System.out.println("Please input a valid id.\n");
         } catch (EntityNotFoundException e) {
-            System.out.println("Order does not exist.");
+            System.out.println("Order does not exist.\n");
         } catch (IOException e) {
-            System.out.println("Error in writing to file. Please try again.");
+            System.out.println("Error in writing to file. Please try again.\n");
         } catch (Exception e) {
-            System.out.println("Something is wrong. Please try again.");
+            System.out.println("Something is wrong. Please try again.\n");
         }
     }
 
@@ -196,11 +196,11 @@ public class RestaurantManager {
             int tableNumber = Integer.parseInt(scanner.nextLine());
             Order order = new Order(tableNumber);
             currentOrderService.add(order);
-            System.out.println("Add new order successfully.");
+            System.out.println("Add new order successfully.\n");
         } catch (NumberFormatException e) {
-            System.out.println("Please input a table id.");
+            System.out.println("Please input a table id.\n");
         } catch (Exception e) {
-            System.out.println("Something is wrong. Please try again.");
+            System.out.println("Something is wrong. Please try again.\n");
         }
     }
 
@@ -211,28 +211,28 @@ public class RestaurantManager {
             Order order = finishedOrderService.get(orderId);
             System.out.println(order);
         } catch (EntityNotFoundException e) {
-            System.out.println("Order does not exist");
+            System.out.println("Order does not exist.\n");
         } catch (Exception e) {
-            System.out.println("Something is wrong. Please try again.");
+            System.out.println("Something is wrong. Please try again.\n");
         }
     }
 
     private static void getCurrentOrder() {
         try {
-            System.out.print("Index: ");
+            System.out.print("Order index: ");
             int idx = Integer.parseInt(scanner.nextLine());
             Order order = currentOrderService.get(idx);
             System.out.println(order);
         } catch (EntityNotFoundException e) {
-            System.out.println("Order does not exist");
+            System.out.println("Order does not exist.\n");
         } catch (Exception e) {
-            System.out.println("Something is wrong. Please try again.");
+            System.out.println("Something is wrong. Please try again.\n");
         }
     }
 
     private static void addItemToOrder() {
         try {
-            System.out.print("Order id: ");
+            System.out.print("Order index: ");
             int orderId = Integer.parseInt(scanner.nextLine());
             System.out.print("Item id: ");
             int itemId = Integer.parseInt(scanner.nextLine());
@@ -240,62 +240,63 @@ public class RestaurantManager {
             System.out.print("Quantity: ");
             int quantity = Integer.parseInt(scanner.nextLine());
             currentOrderService.addItemToOrder(orderId, menuItem, quantity);
-            System.out.println("Order item successfully.");
+            System.out.println("Order item successfully.\n");
         } catch (NumberFormatException e) {
-            System.out.println("Please input a valid id and/or quality.");
+            System.out.println("Please input a valid id and/or quality.\n");
         } catch (EntityNotFoundException e) {
-            System.out.println("Item/Order does not exist.");
+            System.out.println("Item/Order does not exist.\n");
         } catch (Exception e) {
-            System.out.println("Something is wrong. Please try again.");
+            System.out.println("Something is wrong. Please try again.\n");
         }
     }
 
     private static void removeItemFromOrder() {
         try {
-            System.out.print("Order id: ");
+            System.out.print("Order index: ");
             int orderId = Integer.parseInt(scanner.nextLine());
             System.out.print("Item id: ");
             int itemId = Integer.parseInt(scanner.nextLine());
             MenuItem menuItem = menuService.get(itemId);
             currentOrderService.removeItemFromOrder(orderId, menuItem);
-            System.out.println("Remove item successfully.");
+            System.out.println("Remove item successfully.\n");
         } catch (NumberFormatException e) {
-            System.out.println("Please input a valid id and/or quality.");
+            System.out.println("Please input a valid id and/or quality.\n");
         } catch (EntityNotFoundException e) {
-            System.out.println("Item/Order does not exist.");
+            System.out.println("Item/Order does not exist.\n");
         } catch (Exception e) {
-            System.out.println("Something is wrong. Please try again.");
+            System.out.println("Something is wrong. Please try again.\n");
         }
     }
 
     private static void cancelOrder() {
         try {
-            System.out.print("Order id: ");
+            System.out.print("Order index: ");
             int orderId = Integer.parseInt(scanner.nextLine());
             currentOrderService.remove(orderId);
-            System.out.println("Cancel new order successfully.");
+            System.out.println("Cancel new order successfully.\n");
         } catch (NumberFormatException e) {
-            System.out.println("Please input a valid id.");
+            System.out.println("Please input a valid id.\n");
         } catch (EntityNotFoundException e) {
-            System.out.println("Order does not exist.");
+            System.out.println("Order does not exist.\n");
         } catch (Exception e) {
-            System.out.println("Something is wrong. Please try again.");
+            System.out.println("Something is wrong. Please try again.\n");
         }
     }
 
     private static void checkoutOrder() {
         try {
-            System.out.print("Order id: ");
+            System.out.print("Order index: ");
             int orderId = Integer.parseInt(scanner.nextLine());
             Order order = currentOrderService.get(orderId);
             finishedOrderService.add(order);
-            System.out.println("Checkout order successfully.");
+            currentOrderService.remove(orderId);
+            System.out.println("Checkout order successfully.\n");
         } catch (EntityNotFoundException e) {
-            System.out.println("Order does not exist.");
+            System.out.println("Order does not exist.\n");
         } catch (IOException e) {
-            System.out.println("Error in writing to file. You can run `recover` to sync the program and the file.");
+            System.out.println("Error in writing to file. You can run `recover` to sync the program and the file.\n");
         } catch (Exception e) {
-            System.out.println("Something is wrong. Please try again.");
+            System.out.println("Something is wrong. Please try again.\n");
         }
     }
 
@@ -304,9 +305,9 @@ public class RestaurantManager {
             menuService.sync();
             finishedOrderService.sync();
         } catch (IOException e) {
-            System.out.println("Error in writing to file.");
+            System.out.println("Error in writing to file.\n");
         } catch (Exception e) {
-            System.out.println("Something is wrong. Please try again.");
+            System.out.println("Something is wrong. Please try again.\n");
         }
     }
 

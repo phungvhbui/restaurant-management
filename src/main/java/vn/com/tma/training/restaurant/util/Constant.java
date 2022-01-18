@@ -37,7 +37,7 @@ public class Constant {
     // Formatter
     public static final DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     // Menu
-    public static final String HELP_MENU = "Available commands:" +
+    public static final String HELP_MENU = "Available commands:\n" +
             "    help               : Show help\n" +
             "    menu show          : Show menu\n" +
             "    menu add           : Add an item to menu\n" +
@@ -54,7 +54,7 @@ public class Constant {
             "    order cancel       : Cancel an ongoing order\n" +
             "    order checkout     : Checkout an ongoing order\n" +
             "    recover            : Sync the program and database (file)\n" +
-            "    quit/exit          : End the session\n";
+            "    quit/exit          : End the session";
     public static final String COMMAND_PREFIX = "> ";
 
     public static final String HELP = "help";

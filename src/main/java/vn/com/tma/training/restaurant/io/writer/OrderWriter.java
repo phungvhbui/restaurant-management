@@ -50,7 +50,7 @@ public class OrderWriter implements Writer<List<Order>> {
         printWriter.println();
         printWriter.println("ORDER ID: " + order.getId());
         printWriter.println("TABLE: " + order.getTableNumber());
-        printWriter.println("TIME" + order.getOrderedTime().format(Constant.DATETIME_FORMATTER));
+        printWriter.println("TIME: " + order.getOrderedTime().format(Constant.DATETIME_FORMATTER));
         printWriter.println();
         printWriter.println("----------------------------------------------------------------------------------");
         printWriter.printf("%-15s%-15s%-15s%n", "NAME", "UNIT PRICE", "QUANTITY");

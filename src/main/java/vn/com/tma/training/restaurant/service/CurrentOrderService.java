@@ -46,8 +46,8 @@ public class CurrentOrderService extends Service<Order> {
     @Override
     public void show() {
         for (int i = 0; i < orderList.size(); i++) {
-            System.out.println(i + "\n  ");
-            System.out.println(orderList.get(i));
+            System.out.println("Order index: " + i);
+            System.out.println(orderList.get(i).toStringForList());
         }
     }
 
@@ -55,6 +55,7 @@ public class CurrentOrderService extends Service<Order> {
         for (int i = 0; i < orderList.size(); i++) {
             if (i == id) {
                 orderList.get(i).orderItem(menuItem, quantity);
+                return;
             }
         }
         throw new EntityNotFoundException();
@@ -64,6 +65,7 @@ public class CurrentOrderService extends Service<Order> {
         for (int i = 0; i < orderList.size(); i++) {
             if (i == id) {
                 orderList.get(i).removeItem(menuItem);
+                return;
             }
         }
         throw new EntityNotFoundException();

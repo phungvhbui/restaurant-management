@@ -78,14 +78,22 @@ public class Order {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("ID: ").append(id).append("\n");
+        stringBuilder.append("Table: ").append(tableNumber).append("\n");
         stringBuilder.append("Items: ").append("\n");
         for (Map.Entry<MenuItem, Integer> set : orderedItems.entrySet()) {
-            MenuItem order = set.getKey();
+            MenuItem item = set.getKey();
             int quantity = set.getValue();
-            stringBuilder.append("    ").append(order.toStringForOrder()).append(" - Quantity: ").append(quantity).append("\n");
+            stringBuilder.append("    ").append(item).append("\n");
+            stringBuilder.append("        Quantity: ").append(quantity).append("\n");
         }
         stringBuilder.append("Time: ").append(orderedTime).append("\n");
         stringBuilder.append("Total price: ").append(totalPrice).append("\n");
         return stringBuilder.toString();
+    }
+
+    public String toStringForList() {
+        return "ID: " + id + "\n" +
+                "  Table: " + tableNumber + "\n" +
+                "  Total price: " + totalPrice + "\n";
     }
 }
