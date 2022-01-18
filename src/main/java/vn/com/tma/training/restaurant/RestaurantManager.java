@@ -7,6 +7,8 @@ import vn.com.tma.training.restaurant.entity.order.Order;
 import vn.com.tma.training.restaurant.enumtype.DrinkType;
 import vn.com.tma.training.restaurant.enumtype.FoodType;
 import vn.com.tma.training.restaurant.enumtype.MenuType;
+import vn.com.tma.training.restaurant.exception.EntityNotFoundException;
+import vn.com.tma.training.restaurant.exception.InvalidInputException;
 import vn.com.tma.training.restaurant.service.MenuService;
 import vn.com.tma.training.restaurant.service.OrderService;
 import vn.com.tma.training.restaurant.util.Constant;
@@ -20,8 +22,6 @@ public class RestaurantManager {
     private static Order newOrder = new Order();
 
     public static void main(String[] args) {
-        // Init system
-
         // Menu
         String command;
         do {
@@ -94,49 +94,47 @@ public class RestaurantManager {
     }
 
     private static void addItemToMenu() {
-        MenuItem itemToAdd = inputItem();
-        if (itemToAdd != null) {
+        try {
+            MenuItem itemToAdd = inputItem();
             menuService.add(itemToAdd);
             System.out.println("Add item successfully.");
-        } else {
-            System.out.println("Add item failed. Please try again.");
+        } catch (InvalidInputException e) {
+            System.out.println("Invalid item. Please check your input.");
+        } catch (Exception e) {
+            System.out.println("Something is wrong. Please try again.");
         }
     }
 
     private static void editItemInMenu() {
-        int editId;
         try {
             System.out.print("Item id: ");
-            editId = Integer.parseInt(scanner.nextLine());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return;
-        }
-        MenuItem itemToUpdate = menuService.get(editId);
-        if (itemToUpdate == null) {
-            System.out.println("Item does not exist.");
-            return;
-        }
-        MenuItem newItemToUpdate = inputItem();
-        if (newItemToUpdate != null) {
+            int editId = Integer.parseInt(scanner.nextLine());
+            menuService.get(editId);
+            MenuItem newItemToUpdate = inputItem();
             menuService.update(editId, newItemToUpdate);
             System.out.println("Update item successfully.");
-        } else {
-            System.out.println("Update item failed. Please try again.");
+        } catch (NumberFormatException e) {
+            System.out.println("Please input a valid id.");
+        } catch (EntityNotFoundException e) {
+            System.out.println("Item does not exist.");
+        } catch (InvalidInputException e) {
+            System.out.println("Invalid item. Please check your input.");
+        } catch (Exception e) {
+            System.out.println("Something is wrong. Please try again.");
         }
     }
 
     private static void deleteItemFromMenu() {
-        int deleteId;
         try {
             System.out.print("Item id: ");
-            deleteId = Integer.parseInt(scanner.nextLine());
+            int deleteId = Integer.parseInt(scanner.nextLine());
+            menuService.remove(deleteId);
+            System.out.println("Remove item successfully.");
+        } catch (NumberFormatException e) {
+            System.out.println("Please input a valid id.");
         } catch (Exception e) {
-            e.printStackTrace();
-            return;
+            System.out.println("Something is wrong. Please try again.");
         }
-        menuService.remove(deleteId);
-        System.out.println("Remove item successfully.");
     }
 
     public static void showOrders() {
@@ -150,43 +148,45 @@ public class RestaurantManager {
             exportId = Integer.parseInt(scanner.nextLine());
             orderService.export(exportId);
             System.out.println("Export order successfully.");
-
+        } catch (NumberFormatException e) {
+            System.out.println("Please input a valid id.");
         } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Export order failed. Please try again.");
+            System.out.println("Something is wrong. Please try again.");
         }
     }
 
     public static void addItemToOrder() {
-        int orderItem;
-        int quantity;
         try {
             System.out.print("Item id: ");
-            orderItem = Integer.parseInt(scanner.nextLine());
+            int orderItem = Integer.parseInt(scanner.nextLine());
             System.out.print("Quantity: ");
-            quantity = Integer.parseInt(scanner.nextLine());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return;
-        }
-        MenuItem itemToOrder = menuService.get(orderItem);
-        if (itemToOrder != null) {
+            int quantity = Integer.parseInt(scanner.nextLine());
+            MenuItem itemToOrder = menuService.get(orderItem);
             newOrder.orderItem(itemToOrder, quantity);
             System.out.println("Order item successfully.");
-        } else {
-            System.out.println("Order item failed. Please try again.");
+        } catch (NumberFormatException e) {
+            System.out.println("Please input a valid id and/or quality.");
+        } catch (EntityNotFoundException e) {
+            System.out.println("Item does not exist.");
+        } catch (Exception e) {
+            System.out.println("Something is wrong. Please try again.");
         }
     }
 
     public static void saveOrder() {
-        orderService.add(newOrder);
-        System.out.println("Save order successfully.");
-        newOrder = new Order();
+        try {
+            orderService.add(newOrder);
+            System.out.println("Save order successfully.");
+            newOrder = new Order();
+        } catch (Exception e) {
+            System.out.println("Something is wrong. Please try again.");
+        }
     }
 
     private static MenuItem inputItem() {
+        MenuItem item = null;
         try {
-            System.out.print("Would you like to add a dish (0) or a drink (1)? ");
+            System.out.print("Would you like to add/update a dish (0) or a drink (1)? ");
             int option = Integer.parseInt(scanner.nextLine());
             MenuType type = MenuType.getMenuType(option);
             System.out.print("Name: ");
@@ -204,19 +204,21 @@ public class RestaurantManager {
                 System.out.print("Availability (0: no, != 0: yes): ");
                 int in = Integer.parseInt(scanner.nextLine());
                 boolean isAvailable = in != 0;
-                return new Food(name, description, unitPrice, unit, MenuType.FOOD, isAvailable, time);
+                item = new Food(name, description, unitPrice, unit, MenuType.FOOD, isAvailable, time);
             } else if (type.ordinal() == MenuType.DRINK.ordinal()) {
                 System.out.print("Drink type (0: Soft drink, 1: Alcohol): ");
                 int drinkTypeIn = Integer.parseInt(scanner.nextLine());
                 DrinkType drinkType = DrinkType.getDrinkType(drinkTypeIn);
                 System.out.print("Stock: ");
                 int stock = Integer.parseInt(scanner.nextLine());
-                return new Drink(name, description, unitPrice, unit, MenuType.DRINK, stock, drinkType);
+                item = new Drink(name, description, unitPrice, unit, MenuType.DRINK, stock, drinkType);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new InvalidInputException();
         }
-        System.out.println("Canceling..");
-        return null;
+        if (item == null) {
+            throw new InvalidInputException();
+        }
+        return item;
     }
 }

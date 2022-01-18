@@ -1,6 +1,7 @@
 package vn.com.tma.training.restaurant.service;
 
 import vn.com.tma.training.restaurant.entity.order.Order;
+import vn.com.tma.training.restaurant.exception.EntityNotFoundException;
 import vn.com.tma.training.restaurant.exception.NotYetImplementedException;
 import vn.com.tma.training.restaurant.io.reader.OrderReader;
 import vn.com.tma.training.restaurant.io.writer.OrderWriter;
@@ -26,7 +27,7 @@ public class OrderService extends Service<Order> {
                 return order;
             }
         }
-        return null;
+        throw new EntityNotFoundException();
     }
 
     @Override

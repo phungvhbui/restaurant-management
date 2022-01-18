@@ -3,6 +3,7 @@ package vn.com.tma.training.restaurant.service;
 import vn.com.tma.training.restaurant.entity.menu.Drink;
 import vn.com.tma.training.restaurant.entity.menu.Food;
 import vn.com.tma.training.restaurant.entity.menu.MenuItem;
+import vn.com.tma.training.restaurant.exception.EntityNotFoundException;
 import vn.com.tma.training.restaurant.exception.NotYetImplementedException;
 import vn.com.tma.training.restaurant.io.reader.MenuReader;
 import vn.com.tma.training.restaurant.io.writer.MenuWriter;
@@ -30,7 +31,7 @@ public class MenuService extends Service<MenuItem> {
                 return item;
             }
         }
-        return null;
+        throw new EntityNotFoundException();
     }
 
     @Override
