@@ -10,7 +10,8 @@ A simple console application to manage restaurant within Menu and Order specific
 - [x] Create a service
 - [x] Reduce main function length
 - [x] Handle error
-- [ ] Add orderById and menuById
+- [x] Add orderById and menuById
+- [x] Fix order flow logic
 - [ ] Implement order export
 - [ ] Add logging
 - [ ] Add java doc
