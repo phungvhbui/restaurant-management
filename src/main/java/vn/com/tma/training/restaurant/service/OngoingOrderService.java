@@ -1,5 +1,7 @@
 package vn.com.tma.training.restaurant.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vn.com.tma.training.restaurant.entity.menu.MenuItem;
 import vn.com.tma.training.restaurant.entity.order.Order;
 import vn.com.tma.training.restaurant.exception.EntityNotFoundException;
@@ -8,11 +10,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CurrentOrderService extends Service<Order> {
+public class OngoingOrderService extends Service<Order> {
+    private static final Logger logger = LoggerFactory.getLogger(OngoingOrderService.class);
     private final List<Order> orderList;
 
-    public CurrentOrderService() {
+    public OngoingOrderService() {
         this.orderList = new ArrayList<>();
+        logger.info("Initialized ongoing Order service");
     }
 
     @Override

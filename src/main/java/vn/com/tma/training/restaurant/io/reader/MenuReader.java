@@ -1,5 +1,7 @@
 package vn.com.tma.training.restaurant.io.reader;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vn.com.tma.training.restaurant.entity.menu.Drink;
 import vn.com.tma.training.restaurant.entity.menu.Food;
 import vn.com.tma.training.restaurant.entity.menu.MenuItem;
@@ -20,32 +22,42 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MenuReader implements Reader<List<MenuItem>> {
+    private static final Logger logger = LoggerFactory.getLogger(MenuReader.class);
+
     @Override
     public List<MenuItem> read() throws IOException, InvalidEnumValueException {
+        logger.info("Reading menu from file " + Constant.MENU_FILE.getAbsolutePath());
+
         List<MenuItem> menuItemList = new ArrayList<>();
-        InputStream is;
-        is = new FileInputStream(Constant.MENU_FILE);
-        JsonReader reader = Json.createReader(is);
-        JsonArray items = reader.readArray();
-        reader.close();
-        for (int i = 0; i < items.size(); i++) {
-            JsonObject item = items.getJsonObject(i);
-            int id = item.getInt(Constant.ID);
-            String name = item.getString(Constant.NAME);
-            String description = item.getString(Constant.DESCRIPTION);
-            int unitPrice = item.getInt(Constant.UNIT_PRICE);
-            String unitType = item.getString(Constant.UNIT_TYPE);
-            int menuType = item.getInt(Constant.MENU_TYPE);
-            if (menuType == MenuType.FOOD.ordinal()) {
-                boolean isAvailable = item.getInt(Constant.IS_AVAILABLE) != 0;
-                FoodType foodType = FoodType.getFoodType(item.getInt(Constant.CUSTOM_TYPE));
-                menuItemList.add(new Food(id, name, description, unitPrice, unitType, MenuType.FOOD, isAvailable, foodType));
-            } else if (menuType == MenuType.DRINK.ordinal()) {
-                int stock = item.getInt(Constant.STOCK);
-                DrinkType drinkType = DrinkType.getDrinkType(item.getInt(Constant.CUSTOM_TYPE));
-                menuItemList.add(new Drink(id, name, description, unitPrice, unitType, MenuType.DRINK, stock, drinkType));
+        try {
+            InputStream is;
+            is = new FileInputStream(Constant.MENU_FILE);
+            JsonReader reader = Json.createReader(is);
+            JsonArray items = reader.readArray();
+            reader.close();
+            for (int i = 0; i < items.size(); i++) {
+                JsonObject item = items.getJsonObject(i);
+                int id = item.getInt(Constant.ID);
+                String name = item.getString(Constant.NAME);
+                String description = item.getString(Constant.DESCRIPTION);
+                int unitPrice = item.getInt(Constant.UNIT_PRICE);
+                String unitType = item.getString(Constant.UNIT_TYPE);
+                int menuType = item.getInt(Constant.MENU_TYPE);
+                if (menuType == MenuType.FOOD.ordinal()) {
+                    boolean isAvailable = item.getInt(Constant.IS_AVAILABLE) != 0;
+                    FoodType foodType = FoodType.getFoodType(item.getInt(Constant.CUSTOM_TYPE));
+                    menuItemList.add(new Food(id, name, description, unitPrice, unitType, MenuType.FOOD, isAvailable, foodType));
+                } else if (menuType == MenuType.DRINK.ordinal()) {
+                    int stock = item.getInt(Constant.STOCK);
+                    DrinkType drinkType = DrinkType.getDrinkType(item.getInt(Constant.CUSTOM_TYPE));
+                    menuItemList.add(new Drink(id, name, description, unitPrice, unitType, MenuType.DRINK, stock, drinkType));
+                }
             }
+        } catch (IOException | InvalidEnumValueException e) {
+            logger.error(e.toString());
+            throw e;
         }
+        
         return menuItemList;
     }
 }

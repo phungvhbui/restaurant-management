@@ -1,5 +1,7 @@
 package vn.com.tma.training.restaurant;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vn.com.tma.training.restaurant.entity.menu.Drink;
 import vn.com.tma.training.restaurant.entity.menu.Food;
 import vn.com.tma.training.restaurant.entity.menu.MenuItem;
@@ -9,10 +11,9 @@ import vn.com.tma.training.restaurant.enumtype.FoodType;
 import vn.com.tma.training.restaurant.enumtype.MenuType;
 import vn.com.tma.training.restaurant.exception.EntityNotFoundException;
 import vn.com.tma.training.restaurant.exception.InvalidAmountException;
-import vn.com.tma.training.restaurant.exception.InvalidEnumValueException;
 import vn.com.tma.training.restaurant.exception.InvalidInputException;
-import vn.com.tma.training.restaurant.service.CurrentOrderService;
 import vn.com.tma.training.restaurant.service.MenuService;
+import vn.com.tma.training.restaurant.service.OngoingOrderService;
 import vn.com.tma.training.restaurant.service.OrderService;
 import vn.com.tma.training.restaurant.util.Constant;
 
@@ -22,16 +23,18 @@ import java.util.Scanner;
 public class RestaurantManager {
     private static MenuService menuService = null;
     private static OrderService finishedOrderService = null;
-    private static CurrentOrderService currentOrderService = null;
+    private static OngoingOrderService ongoingOrderService = null;
     private static Scanner scanner = null;
+    private static Logger logger = LoggerFactory.getLogger(RestaurantManager.class);
+
 
     static {
         try {
             menuService = new MenuService();
             finishedOrderService = new OrderService();
-            currentOrderService = new CurrentOrderService();
+            ongoingOrderService = new OngoingOrderService();
             scanner = new Scanner(System.in);
-        } catch (IOException | InvalidEnumValueException e) {
+        } catch (Exception e) {
             System.out.println("Initialize system failed.");
             System.exit(0);
         }
@@ -170,7 +173,7 @@ public class RestaurantManager {
     }
 
     private static void showCurrentOrders() {
-        currentOrderService.show();
+        ongoingOrderService.show();
     }
 
     private static void exportOrder() {
@@ -195,7 +198,7 @@ public class RestaurantManager {
             System.out.print("Table number: ");
             int tableNumber = Integer.parseInt(scanner.nextLine());
             Order order = new Order(tableNumber);
-            currentOrderService.add(order);
+            ongoingOrderService.add(order);
             System.out.println("Add new order successfully.\n");
         } catch (NumberFormatException e) {
             System.out.println("Please input a table id.\n");
@@ -221,7 +224,7 @@ public class RestaurantManager {
         try {
             System.out.print("Order index: ");
             int idx = Integer.parseInt(scanner.nextLine());
-            Order order = currentOrderService.get(idx);
+            Order order = ongoingOrderService.get(idx);
             System.out.println(order);
         } catch (EntityNotFoundException e) {
             System.out.println("Order does not exist.\n");
@@ -240,7 +243,7 @@ public class RestaurantManager {
             System.out.print("Quantity: ");
             int quantity = Integer.parseInt(scanner.nextLine());
             menuService.reduceStock(itemId, quantity);
-            currentOrderService.addItemToOrder(orderId, menuItem, quantity);
+            ongoingOrderService.addItemToOrder(orderId, menuItem, quantity);
             System.out.println("Order item successfully.\n");
         } catch (NumberFormatException e) {
             System.out.println("Please input a valid id and/or quality.\n");
@@ -260,7 +263,7 @@ public class RestaurantManager {
             System.out.print("Item id: ");
             int itemId = Integer.parseInt(scanner.nextLine());
             MenuItem menuItem = menuService.get(itemId);
-            currentOrderService.removeItemFromOrder(orderId, menuItem);
+            ongoingOrderService.removeItemFromOrder(orderId, menuItem);
             System.out.println("Remove item successfully.\n");
         } catch (NumberFormatException e) {
             System.out.println("Please input a valid id and/or quality.\n");
@@ -275,7 +278,7 @@ public class RestaurantManager {
         try {
             System.out.print("Order index: ");
             int orderId = Integer.parseInt(scanner.nextLine());
-            currentOrderService.remove(orderId);
+            ongoingOrderService.remove(orderId);
             System.out.println("Cancel new order successfully.\n");
         } catch (NumberFormatException e) {
             System.out.println("Please input a valid id.\n");
@@ -290,9 +293,9 @@ public class RestaurantManager {
         try {
             System.out.print("Order index: ");
             int orderId = Integer.parseInt(scanner.nextLine());
-            Order order = currentOrderService.get(orderId);
+            Order order = ongoingOrderService.get(orderId);
             finishedOrderService.add(order);
-            currentOrderService.remove(orderId);
+            ongoingOrderService.remove(orderId);
             menuService.sync();
             System.out.println("Checkout order successfully.\n");
         } catch (EntityNotFoundException e) {

@@ -1,5 +1,7 @@
 package vn.com.tma.training.restaurant.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vn.com.tma.training.restaurant.entity.menu.Drink;
 import vn.com.tma.training.restaurant.entity.menu.Food;
 import vn.com.tma.training.restaurant.entity.menu.MenuItem;
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MenuService extends Service<MenuItem> {
+    private static final Logger logger = LoggerFactory.getLogger(MenuService.class);
     private final List<MenuItem> menuItemList;
     private final MenuWriter menuWriter;
 
@@ -23,6 +26,7 @@ public class MenuService extends Service<MenuItem> {
         MenuReader menuReader = new MenuReader();
         this.menuWriter = new MenuWriter();
         this.menuItemList = menuReader.read();
+        logger.info("Initialized Menu service");
     }
 
     @Override

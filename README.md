@@ -13,6 +13,7 @@ A simple console application to manage restaurant within Menu and Order specific
 - [x] Add orderById and menuById
 - [x] Fix order flow logic
 - [x] Implement order export
+- [x] Fix order stock logic
 - [ ] Add logging
 - [ ] Add java doc
 

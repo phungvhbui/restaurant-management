@@ -1,5 +1,7 @@
 package vn.com.tma.training.restaurant.io.reader;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vn.com.tma.training.restaurant.util.Constant;
 import vn.com.tma.training.restaurant.util.Index;
 
@@ -11,14 +13,26 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class IndexReader implements Reader<Index> {
+    private static final Logger logger = LoggerFactory.getLogger(MenuReader.class);
+
     @Override
     public Index read() throws IOException {
-        InputStream is;
-        is = new FileInputStream(Constant.INDEX_FILE);
-        JsonReader reader = Json.createReader(is);
-        JsonObject object = reader.readObject();
-        Index index = new Index(object.getInt(Constant.MENU_INDEX), object.getInt(Constant.ORDER_INDEX));
-        reader.close();
+        logger.info("Reading indexes from file " + Constant.INDEX_FILE.getAbsolutePath());
+
+        Index index;
+        try {
+            InputStream is;
+            is = new FileInputStream(Constant.INDEX_FILE);
+            JsonReader reader = Json.createReader(is);
+            JsonObject object = reader.readObject();
+            index = new Index(object.getInt(Constant.MENU_INDEX), object.getInt(Constant.ORDER_INDEX));
+            reader.close();
+
+        } catch (IOException e) {
+            logger.error(e.toString());
+            throw e;
+        }
+
         return index;
     }
 }

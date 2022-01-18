@@ -1,5 +1,7 @@
 package vn.com.tma.training.restaurant.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vn.com.tma.training.restaurant.entity.order.Order;
 import vn.com.tma.training.restaurant.exception.EntityNotFoundException;
 import vn.com.tma.training.restaurant.io.reader.OrderReader;
@@ -10,6 +12,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class OrderService extends Service<Order> {
+    private static final Logger logger = LoggerFactory.getLogger(OrderService.class);
     private final List<Order> orderList;
     private final OrderWriter orderWriter;
 
@@ -18,6 +21,7 @@ public class OrderService extends Service<Order> {
         OrderReader orderReader = new OrderReader();
         this.orderWriter = new OrderWriter();
         this.orderList = orderReader.read();
+        logger.info("Initialized Order service");
     }
 
     @Override
