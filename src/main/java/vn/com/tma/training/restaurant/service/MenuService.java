@@ -10,6 +10,7 @@ import vn.com.tma.training.restaurant.io.writer.MenuWriter;
 import vn.com.tma.training.restaurant.util.Index;
 import vn.com.tma.training.restaurant.util.MenuItemComparator;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class MenuService extends Service<MenuItem> {
     private final List<MenuItem> menuItemList;
     private final MenuWriter menuWriter;
 
-    public MenuService() {
+    public MenuService() throws IOException {
         super();
         MenuReader menuReader = new MenuReader();
         this.menuWriter = new MenuWriter();
@@ -35,7 +36,7 @@ public class MenuService extends Service<MenuItem> {
     }
 
     @Override
-    public void add(MenuItem itemToAdd) {
+    public void add(MenuItem itemToAdd) throws IOException {
         Index index = indexReader.read();
         itemToAdd.setId(index.getMenuIndex() + 1);
         index.setMenuIndex(index.getMenuIndex() + 1);
@@ -45,7 +46,7 @@ public class MenuService extends Service<MenuItem> {
     }
 
     @Override
-    public void update(int id, MenuItem itemToUpdate) {
+    public void update(int id, MenuItem itemToUpdate) throws IOException {
         for (int i = 0; i < menuItemList.size(); i++) {
             if (menuItemList.get(i).getId() == id) {
                 itemToUpdate.setId(id);
@@ -57,7 +58,7 @@ public class MenuService extends Service<MenuItem> {
     }
 
     @Override
-    public void remove(int id) {
+    public void remove(int id) throws IOException {
         for (int i = 0; i < menuItemList.size(); i++) {
             if (menuItemList.get(i).getId() == id) {
                 menuItemList.remove(i);

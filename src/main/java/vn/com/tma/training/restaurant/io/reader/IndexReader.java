@@ -7,24 +7,18 @@ import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 
 public class IndexReader implements Reader<Index> {
     @Override
-    public Index read() {
-        Index index = null;
+    public Index read() throws IOException {
         InputStream is;
-        try {
-            is = new FileInputStream(Constant.INDEX_FILE);
-            JsonReader reader = Json.createReader(is);
-            JsonObject object = reader.readObject();
-            index = new Index(object.getInt(Constant.MENU_INDEX), object.getInt(Constant.ORDER_INDEX));
-            reader.close();
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        is = new FileInputStream(Constant.INDEX_FILE);
+        JsonReader reader = Json.createReader(is);
+        JsonObject object = reader.readObject();
+        Index index = new Index(object.getInt(Constant.MENU_INDEX), object.getInt(Constant.ORDER_INDEX));
+        reader.close();
         return index;
     }
 }

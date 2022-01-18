@@ -15,6 +15,7 @@ public class Constant {
     public static final String ALCOHOL = "Alcohol";
     // Field name
     public static final String ID = "id";
+    public static final String TABLE_NUMBER = "tableNumber";
     public static final String TIME = "time";
     public static final String ITEMS = "items";
     public static final String NAME = "name";
@@ -58,10 +59,12 @@ public class Constant {
     public static final String MENU_ADD = "menu add";
     public static final String MENU_EDIT = "menu edit";
     public static final String MENU_DELETE = "menu delete";
-    public static final String ORDER_SHOW = "order show";
+    public static final String ORDER_SHOW_DONE = "order show done";
+    public static final String ORDER_SHOW_CURRENT = "order show current";
     public static final String ORDER_EXPORT = "order export";
-    public static final String ORDER_CLEAR = "order clear";
-    public static final String ORDER_GET = "order get";
+    public static final String ORDER_NEW = "order new";
+    public static final String ORDER_GET_DONE = "order get done";
+    public static final String ORDER_GET_CURRENT = "order get current";
     public static final String ORDER_ADD = "order add";
     public static final String ORDER_SAVE = "order save";
     public static final String EXIT = "exit";

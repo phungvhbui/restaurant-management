@@ -10,20 +10,23 @@ public class Order {
     private final HashMap<MenuItem, Integer> orderedItems;
     private final LocalDateTime orderedTime;
     private int id;
+    private int tableNumber;
     private int totalPrice;
 
-    public Order() {
+    public Order(int tableNumber) {
         orderedItems = new HashMap<>();
         orderedTime = LocalDateTime.now();
         calculateOrder();
     }
 
-    public Order(int orderId, HashMap<MenuItem, Integer> orderedItems, LocalDateTime orderedTime, int totalPrice) {
+    public Order(int orderId, HashMap<MenuItem, Integer> orderedItems, LocalDateTime orderedTime, int tableNumber, int totalPrice) {
         this.id = orderId;
         this.orderedItems = orderedItems;
         this.orderedTime = orderedTime;
+        this.tableNumber = tableNumber;
         this.totalPrice = totalPrice;
     }
+
 
     public void orderItem(MenuItem item, int quantity) {
         if (orderedItems.containsKey(item)) {
@@ -39,10 +42,6 @@ public class Order {
             total += set.getKey().getUnitPrice() * set.getValue();
         }
         this.totalPrice = total;
-    }
-
-    public void exportOrder(String filename) {
-        // TODO: Implement this
     }
 
     public int getId() {
@@ -63,6 +62,10 @@ public class Order {
 
     public int getTotalPrice() {
         return totalPrice;
+    }
+
+    public int getTableNumber() {
+        return tableNumber;
     }
 
     @Override

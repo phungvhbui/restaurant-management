@@ -7,13 +7,14 @@ import vn.com.tma.training.restaurant.io.reader.OrderReader;
 import vn.com.tma.training.restaurant.io.writer.OrderWriter;
 import vn.com.tma.training.restaurant.util.Index;
 
+import java.io.IOException;
 import java.util.List;
 
 public class OrderService extends Service<Order> {
     private final List<Order> orderList;
     private final OrderWriter orderWriter;
 
-    public OrderService() {
+    public OrderService() throws IOException {
         super();
         OrderReader orderReader = new OrderReader();
         this.orderWriter = new OrderWriter();
@@ -31,7 +32,7 @@ public class OrderService extends Service<Order> {
     }
 
     @Override
-    public void add(Order itemToAdd) {
+    public void add(Order itemToAdd) throws IOException {
         Index index = indexReader.read();
         itemToAdd.setId(index.getOrderIndex() + 1);
         index.setOrderIndex(index.getOrderIndex() + 1);

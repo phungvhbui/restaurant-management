@@ -1,6 +1,7 @@
 [
   {
     "id": 1,
+    "tableNumber": 1,
     "time": "2021-12-12 13:00",
     "items": [
       {
@@ -26,19 +27,5 @@
       }
     ],
     "price": 127000
-  },
-  {
-    "id": 2,
-    "time": "2022-01-14 17:25",
-    "items": [
-      {
-        "id": 16,
-        "name": "drink",
-        "unitPrice": 10000,
-        "unitType": "can",
-        "quantity": 2
-      }
-    ],
-    "price": 20000
   }
 ]
