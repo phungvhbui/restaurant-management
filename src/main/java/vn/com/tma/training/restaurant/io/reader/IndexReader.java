@@ -16,7 +16,7 @@ import java.io.InputStream;
  * IndexReader reads the index of the files
  */
 public class IndexReader implements Reader<Index> {
-    private static final Logger logger = LoggerFactory.getLogger(MenuReader.class);
+    private static final Logger logger = LoggerFactory.getLogger(IndexReader.class);
 
     /**
      * Reads the index file and returns the index

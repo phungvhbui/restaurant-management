@@ -55,7 +55,7 @@ public class MenuReader implements Reader<List<MenuItem>> {
                 int itemType = item.getInt(Constant.ITEM_TYPE);
                 if (itemType == ItemType.DISH.ordinal()) {
                     boolean isAvailable = item.getInt(Constant.IS_AVAILABLE) != 0;
-                    MealType mealType = MealType.getFoodType(item.getInt(Constant.CUSTOM_TYPE));
+                    MealType mealType = MealType.getMealType(item.getInt(Constant.CUSTOM_TYPE));
                     menuItemList.add(new Dish(id, name, description, unitPrice, unitType, ItemType.DISH, isAvailable, mealType));
                 } else if (itemType == ItemType.DRINK.ordinal()) {
                     int stock = item.getInt(Constant.STOCK);

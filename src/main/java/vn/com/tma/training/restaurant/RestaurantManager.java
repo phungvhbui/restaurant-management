@@ -349,7 +349,7 @@ public class RestaurantManager {
             if (type.ordinal() == ItemType.DISH.ordinal()) {
                 System.out.print("Time of the day (0: Breakfast, 1: Lunch, 2: Dinner): ");
                 int timeIn = Integer.parseInt(scanner.nextLine());
-                MealType time = MealType.getFoodType(timeIn);
+                MealType time = MealType.getMealType(timeIn);
                 System.out.print("Availability (0: no, != 0: yes): ");
                 int in = Integer.parseInt(scanner.nextLine());
                 boolean isAvailable = in != 0;

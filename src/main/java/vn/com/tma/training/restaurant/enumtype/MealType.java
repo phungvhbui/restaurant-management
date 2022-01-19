@@ -35,7 +35,7 @@ public enum MealType {
      * @return The enum matched the value
      * @throws InvalidEnumValueException If there is no enum matched that value
      */
-    public static MealType getFoodType(int value) {
+    public static MealType getMealType(int value) {
         for (MealType e : MealType.values()) {
             if (e.value == value) {
                 return e;
