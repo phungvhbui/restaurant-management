@@ -43,6 +43,7 @@ public class Constant {
     public static final String HELP_MENU = "Available commands:\n" +
             "    help               : Show help\n" +
             "    menu show          : Show menu\n" +
+            "    menu get           : Show an item in menu\n" +
             "    menu add           : Add an item to menu\n" +
             "    menu edit          : Edit an item in menu\n" +
             "    menu delete        : Delete an item in menu\n" +
@@ -62,6 +63,7 @@ public class Constant {
 
     public static final String HELP = "help";
     public static final String MENU_SHOW = "menu show";
+    public static final String MENU_GET = "menu get";
     public static final String MENU_ADD = "menu add";
     public static final String MENU_EDIT = "menu edit";
     public static final String MENU_DELETE = "menu delete";

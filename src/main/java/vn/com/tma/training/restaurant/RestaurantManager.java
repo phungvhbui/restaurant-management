@@ -65,6 +65,8 @@ public class RestaurantManager {
             case Constant.MENU_SHOW:
                 showMenu();
                 break;
+            case Constant.MENU_GET:
+                getItemInMenu();
             case Constant.MENU_ADD:
                 addItemToMenu();
                 break;
@@ -126,6 +128,21 @@ public class RestaurantManager {
         menuService.show();
     }
 
+    private static void getItemInMenu() {
+        try {
+            System.out.print("Item id: ");
+            int itemId = Integer.parseInt(scanner.nextLine());
+            MenuItem item = menuService.get(itemId);
+            System.out.println(item);
+        } catch (NumberFormatException e) {
+            System.out.println("Please input a valid id.\n");
+        } catch (EntityNotFoundException e) {
+            System.out.println("Item does not exist.\n");
+        } catch (Exception e) {
+            System.out.println("Something is wrong. Please try again.\n");
+        }
+    }
+
     private static void addItemToMenu() {
         try {
             MenuItem itemToAdd = inputItem();
@@ -144,7 +161,6 @@ public class RestaurantManager {
         try {
             System.out.print("Item id: ");
             int editId = Integer.parseInt(scanner.nextLine());
-            menuService.get(editId);
             MenuItem newItemToUpdate = inputItem();
             menuService.update(editId, newItemToUpdate);
             System.out.println("Update item successfully.\n");
