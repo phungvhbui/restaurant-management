@@ -56,14 +56,26 @@ public class MenuItem {
      * @param description The description of the item
      * @param unitPrice   The price of a single unit of the item
      * @param unitType    The unit type of the item (can, bottle, bowl...)
-     * @param itemType    The type of item, can be a drink or a dish
      */
-    public MenuItem(String name, String description, int unitPrice, String unitType, ItemType itemType) {
+    public MenuItem(String name, String description, int unitPrice, String unitType) {
         this.name = name;
         this.description = description;
         this.unitPrice = unitPrice;
         this.unitType = unitType;
-        this.itemType = itemType;
+    }
+
+    /**
+     * Copy constructor that copy all attributes of one to another
+     *
+     * @param item The item that will be copied
+     */
+    public MenuItem(MenuItem item) {
+        this.id = item.id;
+        this.name = item.name;
+        this.description = item.description;
+        this.unitPrice = item.unitPrice;
+        this.unitType = item.unitType;
+        this.itemType = item.itemType;
     }
 
     /**
@@ -102,6 +114,10 @@ public class MenuItem {
 
     public int getUnitPrice() {
         return unitPrice;
+    }
+
+    public void setItemType(ItemType itemType) {
+        this.itemType = itemType;
     }
 
     @Override

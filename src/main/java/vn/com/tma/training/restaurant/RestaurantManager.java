@@ -11,6 +11,7 @@ import vn.com.tma.training.restaurant.enumtype.ItemType;
 import vn.com.tma.training.restaurant.enumtype.MealType;
 import vn.com.tma.training.restaurant.exception.EntityNotFoundException;
 import vn.com.tma.training.restaurant.exception.InvalidAmountException;
+import vn.com.tma.training.restaurant.exception.InvalidEnumValueException;
 import vn.com.tma.training.restaurant.exception.InvalidInputException;
 import vn.com.tma.training.restaurant.service.FinishedOrderService;
 import vn.com.tma.training.restaurant.service.MenuService;
@@ -24,6 +25,7 @@ import java.util.Scanner;
 /**
  * RestaurantManager is the main class of the program.
  * This class will handle user input and process the commands using services.
+ * The first static block will initialize every component needed in the program
  */
 public class RestaurantManager {
     private static final Logger logger = LoggerFactory.getLogger(RestaurantManager.class);
@@ -46,6 +48,11 @@ public class RestaurantManager {
         }
     }
 
+    /**
+     * The main function of the program
+     *
+     * @param args Any argument needed from the console
+     */
     public static void main(String[] args) {
         String command;
         do {
@@ -56,6 +63,13 @@ public class RestaurantManager {
         scanner.close();
     }
 
+    /**
+     * This function will process the command that was input by the user.
+     * After processing, the function will return the next status of the program if it will continue of stop.
+     *
+     * @param command The command will be processed
+     * @return If the program continue or not
+     */
     private static boolean isHandingCommand(String command) {
         logger.info("Received command: " + command);
         switch (command) {
@@ -120,14 +134,23 @@ public class RestaurantManager {
         return true;
     }
 
+    /**
+     * Shows help menu for user.
+     */
     private static void showHelp() {
         System.out.println(Constant.HELP_MENU);
     }
 
+    /**
+     * Shows all menu items for user
+     */
     private static void showMenu() {
         menuService.show();
     }
 
+    /**
+     * Prints out a specific item in the menu
+     */
     private static void getItemInMenu() {
         try {
             System.out.print("Item id: ");
@@ -143,9 +166,12 @@ public class RestaurantManager {
         }
     }
 
+    /**
+     * Adds a new item to the menu
+     */
     private static void addItemToMenu() {
         try {
-            MenuItem itemToAdd = inputItem();
+            MenuItem itemToAdd = createAMenuItem();
             menuService.add(itemToAdd);
             System.out.println("Add item successfully.\n");
         } catch (InvalidInputException e) {
@@ -157,11 +183,14 @@ public class RestaurantManager {
         }
     }
 
+    /**
+     * Edits an item in the menu
+     */
     private static void editItemInMenu() {
         try {
             System.out.print("Item id: ");
             int editId = Integer.parseInt(scanner.nextLine());
-            MenuItem newItemToUpdate = inputItem();
+            MenuItem newItemToUpdate = createAMenuItem();
             menuService.update(editId, newItemToUpdate);
             System.out.println("Update item successfully.\n");
         } catch (NumberFormatException e) {
@@ -177,6 +206,9 @@ public class RestaurantManager {
         }
     }
 
+    /**
+     * Deletes an item from the menu
+     */
     private static void deleteItemFromMenu() {
         try {
             System.out.print("Item id: ");
@@ -192,14 +224,23 @@ public class RestaurantManager {
         }
     }
 
+    /**
+     * Shows all finished orders
+     */
     private static void showDoneOrders() {
         finishedOrderService.show();
     }
 
+    /**
+     * Shows all ongoing orders
+     */
     private static void showCurrentOrders() {
         ongoingOrderService.show();
     }
 
+    /**
+     * Exports an order and generate the file with unix timestamp name
+     */
     private static void exportOrder() {
         try {
             System.out.print("Order id: ");
@@ -217,6 +258,9 @@ public class RestaurantManager {
         }
     }
 
+    /**
+     * Adds a new order to ongoing list
+     */
     private static void addNewOrder() {
         try {
             System.out.print("Table number: ");
@@ -231,6 +275,9 @@ public class RestaurantManager {
         }
     }
 
+    /**
+     * Gets a finished order
+     */
     private static void getDoneOrder() {
         try {
             System.out.print("Order id: ");
@@ -244,6 +291,9 @@ public class RestaurantManager {
         }
     }
 
+    /**
+     * Gets an ongoing order
+     */
     private static void getCurrentOrder() {
         try {
             System.out.print("Order index: ");
@@ -257,6 +307,9 @@ public class RestaurantManager {
         }
     }
 
+    /**
+     * Adds an item to an ongoing order
+     */
     private static void addItemToOrder() {
         try {
             System.out.print("Order index: ");
@@ -280,6 +333,9 @@ public class RestaurantManager {
         }
     }
 
+    /**
+     * Removes an item from an ongoing order
+     */
     private static void removeItemFromOrder() {
         try {
             System.out.print("Order index: ");
@@ -298,6 +354,9 @@ public class RestaurantManager {
         }
     }
 
+    /**
+     * Cancels an ongoing order
+     */
     private static void cancelOrder() {
         try {
             System.out.print("Order index: ");
@@ -313,6 +372,9 @@ public class RestaurantManager {
         }
     }
 
+    /**
+     * Checks out an ongoing order
+     */
     private static void checkoutOrder() {
         try {
             System.out.print("Order index: ");
@@ -331,6 +393,9 @@ public class RestaurantManager {
         }
     }
 
+    /**
+     * Syncs the current lists with the files
+     */
     private static void recover() {
         try {
             menuService.sync();
@@ -343,47 +408,74 @@ public class RestaurantManager {
     }
 
     /**
-     * Handles user input to create/update a MenuItem
+     * Creates a menu item based on the input of user
      *
-     * @return The MenuItem created
-     * @throws InvalidInputException If user input mismatched the requirements
+     * @return The item created, can be a Dish or a Drink
      */
-    private static MenuItem inputItem() {
-        MenuItem item = null;
+    private static MenuItem createAMenuItem() {
         try {
             System.out.print("Would you like to add/update a dish (0) or a drink (1)? ");
             int option = Integer.parseInt(scanner.nextLine());
             ItemType type = ItemType.getMenuType(option);
-            System.out.print("Name: ");
-            String name = scanner.nextLine();
-            System.out.print("Description: ");
-            String description = scanner.nextLine();
-            System.out.print("Unit price: ");
-            int unitPrice = Integer.parseInt(scanner.nextLine());
-            System.out.print("Unit type (ex: bowl, can, bottle,...): ");
-            String unit = scanner.nextLine();
+            MenuItem item = createAGeneralMenuItem();
             if (type.ordinal() == ItemType.DISH.ordinal()) {
-                System.out.print("Time of the day (0: Breakfast, 1: Lunch, 2: Dinner): ");
-                int timeIn = Integer.parseInt(scanner.nextLine());
-                MealType time = MealType.getMealType(timeIn);
-                System.out.print("Availability (0: no, != 0: yes): ");
-                int in = Integer.parseInt(scanner.nextLine());
-                boolean isAvailable = in != 0;
-                item = new Dish(name, description, unitPrice, unit, ItemType.DISH, isAvailable, time);
+                item.setItemType(ItemType.DISH);
+                return createADish(item);
             } else if (type.ordinal() == ItemType.DRINK.ordinal()) {
-                System.out.print("Drink type (0: Soft drink, 1: Alcohol): ");
-                int drinkTypeIn = Integer.parseInt(scanner.nextLine());
-                DrinkType drinkType = DrinkType.getDrinkType(drinkTypeIn);
-                System.out.print("Stock: ");
-                int stock = Integer.parseInt(scanner.nextLine());
-                item = new Drink(name, description, unitPrice, unit, ItemType.DRINK, stock, drinkType);
+                item.setItemType(ItemType.DRINK);
+                return createADrink(item);
             }
         } catch (Exception e) {
             throw new InvalidInputException();
         }
-        if (item == null) {
-            throw new InvalidInputException();
-        }
-        return item;
+        throw new InvalidEnumValueException(Constant.MENU);
+    }
+
+    /**
+     * Creates a general MenuItem
+     *
+     * @return The created MenuItem
+     */
+    private static MenuItem createAGeneralMenuItem() {
+        System.out.print("Name: ");
+        String name = scanner.nextLine();
+        System.out.print("Description: ");
+        String description = scanner.nextLine();
+        System.out.print("Unit price: ");
+        int unitPrice = Integer.parseInt(scanner.nextLine());
+        System.out.print("Unit type (ex: bowl, can, bottle,...): ");
+        String unit = scanner.nextLine();
+        return new MenuItem(name, description, unitPrice, unit);
+    }
+
+    /**
+     * Creates a Dish
+     *
+     * @param item The current MenuItem
+     * @return The created Dish
+     */
+    private static Dish createADish(MenuItem item) {
+        System.out.print("Time of the day (0: Breakfast, 1: Lunch, 2: Dinner): ");
+        int timeIn = Integer.parseInt(scanner.nextLine());
+        MealType time = MealType.getMealType(timeIn);
+        System.out.print("Availability (0: no, != 0: yes): ");
+        int in = Integer.parseInt(scanner.nextLine());
+        boolean isAvailable = in != 0;
+        return new Dish(item, isAvailable, time);
+    }
+
+    /**
+     * Creates a Drink
+     *
+     * @param item The current MenuItem
+     * @return The created Drink
+     */
+    private static Drink createADrink(MenuItem item) {
+        System.out.print("Drink type (0: Soft drink, 1: Alcohol): ");
+        int drinkTypeIn = Integer.parseInt(scanner.nextLine());
+        DrinkType drinkType = DrinkType.getDrinkType(drinkTypeIn);
+        System.out.print("Stock: ");
+        int stock = Integer.parseInt(scanner.nextLine());
+        return new Drink(item, stock, drinkType);
     }
 }

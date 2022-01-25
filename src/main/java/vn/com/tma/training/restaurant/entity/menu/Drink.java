@@ -29,18 +29,16 @@ public class Drink extends MenuItem {
         this.stock = stock;
         this.drinkType = drinkType;
     }
-
+    
     /**
-     * @param name        The name of the drink
-     * @param description The description of the drink
-     * @param unitPrice   The price of a single unit of the drink
-     * @param unitType    The unit type of the drink (can, bottle, bowl...)
-     * @param itemType    The type of drink, should be a Drink
-     * @param stock       The number of stock left of the drink
-     * @param drinkType   The drink type of the drink, can be Soft drink or Alcohol
+     * Constructor that copy basic information from a MenuItem and add additional attributes
+     *
+     * @param menuItem  The item that will be copied
+     * @param stock     The number of stock left of the drink
+     * @param drinkType The drink type of the drink, can be Soft drink or Alcohol
      */
-    public Drink(String name, String description, int unitPrice, String unitType, ItemType itemType, int stock, DrinkType drinkType) {
-        super(name, description, unitPrice, unitType, itemType);
+    public Drink(MenuItem menuItem, int stock, DrinkType drinkType) {
+        super(menuItem);
         this.stock = stock;
         this.drinkType = drinkType;
     }

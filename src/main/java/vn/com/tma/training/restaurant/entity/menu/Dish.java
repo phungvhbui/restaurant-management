@@ -30,18 +30,14 @@ public class Dish extends MenuItem {
     }
 
     /**
-     * Constructor that set all information of a dish except for the identifier. This constructor is usually used when we need index to generate the id later.
+     * Constructor that copy basic information from a MenuItem and add additional attributes
      *
-     * @param name        The name of the dish
-     * @param description The description of the dish
-     * @param unitPrice   The price of a single unit of the dish
-     * @param unitType    The unit type of the dish (can, bottle, bowl...)
-     * @param itemType    The type of item, should be a Dish
+     * @param item        The item that will be copied
      * @param isAvailable The availability status of the dish
      * @param mealType    The meal type of the dish, can be Breakfast, Lunch or Dinner.
      */
-    public Dish(String name, String description, int unitPrice, String unitType, ItemType itemType, boolean isAvailable, MealType mealType) {
-        super(name, description, unitPrice, unitType, itemType);
+    public Dish(MenuItem item, boolean isAvailable, MealType mealType) {
+        super(item);
         this.isAvailable = isAvailable;
         this.mealType = mealType;
     }
