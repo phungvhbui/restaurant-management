@@ -26,7 +26,9 @@ public class IndexWriter implements Writer<Index> {
      */
     @Override
     public void write(Index data) throws IOException {
-        logger.info("Writing indexes to file " + Constant.INDEX_FILE.getAbsolutePath());
+        if (logger.isDebugEnabled()) {
+            logger.info("Writing indexes to file " + Constant.INDEX_FILE.getAbsolutePath());
+        }
 
         try {
             OutputStream os;
@@ -37,7 +39,9 @@ public class IndexWriter implements Writer<Index> {
                     .add(Constant.ORDER_INDEX, data.getOrderIndex());
             writer.writeObject(jsonObjectBuilder.build());
         } catch (IOException e) {
-            logger.error(e.toString());
+            if (logger.isDebugEnabled()) {
+                logger.error(e.toString());
+            }
             throw e;
         }
     }

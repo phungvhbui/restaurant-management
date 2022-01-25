@@ -36,14 +36,18 @@ public class RestaurantManager {
 
     static {
         try {
-            logger.info("Start the session at " + new Date());
+            if (logger.isDebugEnabled()) {
+                logger.info("Start the session at " + new Date());
+            }
             menuService = new MenuService();
             finishedOrderService = new FinishedOrderService();
             ongoingOrderService = new OngoingOrderService();
             scanner = new Scanner(System.in);
         } catch (Exception e) {
             System.out.println("Initialize system failed.");
-            logger.error("Error in loading system. Forcing ending session.");
+            if (logger.isDebugEnabled()) {
+                logger.error("Error in loading system. Forcing ending session.");
+            }
             System.exit(0);
         }
     }
@@ -59,7 +63,9 @@ public class RestaurantManager {
             System.out.print(Constant.COMMAND_PREFIX);
             command = scanner.nextLine();
         } while (isHandingCommand(command));
-        logger.info("Exiting the session at " + new Date());
+        if (logger.isDebugEnabled()) {
+            logger.info("Exiting the session at " + new Date());
+        }
         scanner.close();
     }
 
@@ -71,7 +77,9 @@ public class RestaurantManager {
      * @return If the program continue or not
      */
     private static boolean isHandingCommand(String command) {
-        logger.info("Received command: " + command);
+        if (logger.isDebugEnabled()) {
+            logger.info("Received command: " + command);
+        }
         switch (command) {
             case Constant.HELP:
                 showHelp();
@@ -128,7 +136,9 @@ public class RestaurantManager {
                 System.out.println("Exiting...");
                 return false;
             default:
-                logger.info("Invalid command. Cancel processing");
+                if (logger.isDebugEnabled()) {
+                    logger.info("Invalid command. Cancel processing");
+                }
                 System.out.println("Invalid command. Please try again.\n");
         }
         return true;

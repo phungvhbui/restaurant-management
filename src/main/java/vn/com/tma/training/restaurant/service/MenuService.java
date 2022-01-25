@@ -35,7 +35,9 @@ public class MenuService extends Service<MenuItem> {
         MenuReader menuReader = new MenuReader();
         this.menuWriter = new MenuWriter();
         this.menuItemList = menuReader.read();
-        logger.info("Initialized Menu service");
+        if (logger.isDebugEnabled()) {
+            logger.info("Initialized Menu service");
+        }
     }
 
     /**
@@ -49,11 +51,15 @@ public class MenuService extends Service<MenuItem> {
     public MenuItem get(int id) {
         for (MenuItem item : menuItemList) {
             if (item.getId() == id) {
-                logger.info("Found menu item id: " + id);
+                if (logger.isDebugEnabled()) {
+                    logger.info("Found menu item id: " + id);
+                }
                 return item;
             }
         }
-        logger.warn("Menu item with id: " + id + " not found");
+        if (logger.isDebugEnabled()) {
+            logger.warn("Menu item with id: " + id + " not found");
+        }
         throw new EntityNotFoundException();
     }
 
@@ -71,7 +77,9 @@ public class MenuService extends Service<MenuItem> {
         menuItemList.add(itemToAdd);
         menuWriter.write(this.menuItemList);
         indexWriter.write(index);
-        logger.info("Added item with id: " + itemToAdd.getId());
+        if (logger.isDebugEnabled()) {
+            logger.info("Added item with id: " + itemToAdd.getId());
+        }
     }
 
     /**
@@ -89,11 +97,15 @@ public class MenuService extends Service<MenuItem> {
                 itemToUpdate.setId(id);
                 menuItemList.set(i, itemToUpdate);
                 menuWriter.write(this.menuItemList);
-                logger.info("Updated item with id: " + itemToUpdate.getId());
+                if (logger.isDebugEnabled()) {
+                    logger.info("Updated item with id: " + itemToUpdate.getId());
+                }
                 return;
             }
         }
-        logger.warn("Menu item with id: " + id + " not found");
+        if (logger.isDebugEnabled()) {
+            logger.warn("Menu item with id: " + id + " not found");
+        }
         throw new EntityNotFoundException();
     }
 
@@ -110,11 +122,15 @@ public class MenuService extends Service<MenuItem> {
             if (menuItemList.get(i).getId() == id) {
                 menuItemList.remove(i);
                 menuWriter.write(this.menuItemList);
-                logger.info("Removed item with id: " + id);
+                if (logger.isDebugEnabled()) {
+                    logger.info("Removed item with id: " + id);
+                }
                 return;
             }
         }
-        logger.warn("Menu item with id: " + id + " not found");
+        if (logger.isDebugEnabled()) {
+            logger.warn("Menu item with id: " + id + " not found");
+        }
         throw new EntityNotFoundException();
     }
 
@@ -165,12 +181,16 @@ public class MenuService extends Service<MenuItem> {
                         throw new InvalidAmountException();
                     }
                     drink.setStock(drink.getStock() - quality);
-                    logger.info("Reduced stock of a drink item with id: " + itemId + " (cached only)");
+                    if (logger.isDebugEnabled()) {
+                        logger.info("Reduced stock of a drink item with id: " + itemId + " (cached only)");
+                    }
                 }
                 return;
             }
         }
-        logger.warn("Menu item with id: " + itemId + " not found");
+        if (logger.isDebugEnabled()) {
+            logger.warn("Menu item with id: " + itemId + " not found");
+        }
         throw new EntityNotFoundException();
     }
 

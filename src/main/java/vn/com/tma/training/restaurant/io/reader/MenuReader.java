@@ -36,7 +36,9 @@ public class MenuReader implements Reader<List<MenuItem>> {
      */
     @Override
     public List<MenuItem> read() throws IOException, InvalidEnumValueException {
-        logger.info("Reading menu from file " + Constant.MENU_FILE.getAbsolutePath());
+        if (logger.isDebugEnabled()) {
+            logger.info("Reading menu from file " + Constant.MENU_FILE.getAbsolutePath());
+        }
 
         List<MenuItem> menuItemList = new ArrayList<>();
         try {
@@ -64,7 +66,9 @@ public class MenuReader implements Reader<List<MenuItem>> {
                 }
             }
         } catch (IOException | InvalidEnumValueException e) {
-            logger.error(e.toString());
+            if (logger.isDebugEnabled()) {
+                logger.error(e.toString());
+            }
             throw e;
         }
 

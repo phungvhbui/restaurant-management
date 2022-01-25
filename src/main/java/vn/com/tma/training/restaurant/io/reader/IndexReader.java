@@ -26,7 +26,9 @@ public class IndexReader implements Reader<Index> {
      */
     @Override
     public Index read() throws IOException {
-        logger.info("Reading indexes from file " + Constant.INDEX_FILE.getAbsolutePath());
+        if (logger.isDebugEnabled()) {
+            logger.info("Reading indexes from file " + Constant.INDEX_FILE.getAbsolutePath());
+        }
 
         Index index;
         try {
@@ -37,7 +39,9 @@ public class IndexReader implements Reader<Index> {
             index = new Index(object.getInt(Constant.MENU_INDEX), object.getInt(Constant.ORDER_INDEX));
             reader.close();
         } catch (IOException e) {
-            logger.error(e.toString());
+            if (logger.isDebugEnabled()) {
+                logger.error(e.toString());
+            }
             throw e;
         }
 

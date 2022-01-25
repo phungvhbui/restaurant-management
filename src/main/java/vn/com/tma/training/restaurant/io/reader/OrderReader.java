@@ -34,7 +34,9 @@ public class OrderReader implements Reader<List<Order>> {
      */
     @Override
     public List<Order> read() throws IOException, InvalidEnumValueException {
-        logger.info("Reading orders from file " + Constant.ORDER_FILE.getAbsolutePath());
+        if (logger.isDebugEnabled()) {
+            logger.info("Reading orders from file " + Constant.ORDER_FILE.getAbsolutePath());
+        }
 
         List<Order> orderList = new ArrayList<>();
         try {
@@ -65,7 +67,9 @@ public class OrderReader implements Reader<List<Order>> {
                 orderList.add(new Order(id, map, time, tableNumber, price));
             }
         } catch (IOException | InvalidEnumValueException e) {
-            logger.error(e.toString());
+            if (logger.isDebugEnabled()) {
+                logger.error(e.toString());
+            }
             throw e;
         }
 

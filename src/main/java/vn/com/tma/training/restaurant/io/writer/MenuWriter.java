@@ -28,7 +28,9 @@ public class MenuWriter implements Writer<List<MenuItem>> {
      */
     @Override
     public void write(List<MenuItem> data) throws IOException {
-        logger.info("Writing menu to file " + Constant.MENU_FILE.getAbsolutePath());
+        if (logger.isDebugEnabled()) {
+            logger.info("Writing menu to file " + Constant.MENU_FILE.getAbsolutePath());
+        }
 
         try {
             OutputStream os;
@@ -56,7 +58,9 @@ public class MenuWriter implements Writer<List<MenuItem>> {
             JsonArray items = itemsBuilder.build();
             writer.writeArray(items);
         } catch (IOException e) {
-            logger.error(e.toString());
+            if (logger.isDebugEnabled()) {
+                logger.error(e.toString());
+            }
             throw e;
         }
     }

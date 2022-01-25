@@ -26,7 +26,9 @@ public class OrderWriter implements Writer<List<Order>> {
      */
     @Override
     public void write(List<Order> data) throws IOException {
-        logger.info("Writing orders to file " + Constant.ORDER_FILE.getAbsolutePath());
+        if (logger.isDebugEnabled()) {
+            logger.info("Writing orders to file " + Constant.ORDER_FILE.getAbsolutePath());
+        }
 
         try {
             OutputStream os;
@@ -57,7 +59,9 @@ public class OrderWriter implements Writer<List<Order>> {
             JsonArray orders = orderArrayBuilder.build();
             writer.writeArray(orders);
         } catch (IOException e) {
-            logger.error(e.toString());
+            if (logger.isDebugEnabled()) {
+                logger.error(e.toString());
+            }
             throw e;
         }
     }
@@ -71,7 +75,9 @@ public class OrderWriter implements Writer<List<Order>> {
     public void export(Order order) throws IOException {
         try {
             String fileName = System.currentTimeMillis() / 1000L + ".txt";
-            logger.info("Exporting order to file " + fileName);
+            if (logger.isDebugEnabled()) {
+                logger.info("Exporting order to file " + fileName);
+            }
             FileWriter fileWriter = new FileWriter(fileName + ".txt");
             PrintWriter printWriter = new PrintWriter(fileWriter);
             printWriter.println("'RESTAURANT' RESTAURANT");
@@ -94,7 +100,9 @@ public class OrderWriter implements Writer<List<Order>> {
             printWriter.close();
             System.out.println("Exported to file " + fileName);
         } catch (IOException e) {
-            logger.error(e.toString());
+            if (logger.isDebugEnabled()) {
+                logger.error(e.toString());
+            }
             throw e;
         }
     }

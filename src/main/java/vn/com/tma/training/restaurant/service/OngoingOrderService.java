@@ -21,7 +21,9 @@ public class OngoingOrderService extends Service<Order> {
      */
     public OngoingOrderService() {
         this.orderList = new ArrayList<>();
-        logger.info("Initialized ongoing Order service");
+        if (logger.isDebugEnabled()) {
+            logger.info("Initialized ongoing Order service");
+        }
     }
 
     /**
@@ -35,10 +37,14 @@ public class OngoingOrderService extends Service<Order> {
     public Order get(int id) {
         try {
             Order order = orderList.get(id);
-            logger.info("Found order with index: " + id);
+            if (logger.isDebugEnabled()) {
+                logger.info("Found order with index: " + id);
+            }
             return order;
         } catch (IndexOutOfBoundsException e) {
-            logger.warn("Order with index: " + id + " not found");
+            if (logger.isDebugEnabled()) {
+                logger.warn("Order with index: " + id + " not found");
+            }
             throw new EntityNotFoundException();
         }
     }
@@ -51,7 +57,9 @@ public class OngoingOrderService extends Service<Order> {
     @Override
     public void add(Order itemToAdd) {
         orderList.add(itemToAdd);
-        logger.info("Added item with index: " + (orderList.size() - 1));
+        if (logger.isDebugEnabled()) {
+            logger.info("Added item with index: " + (orderList.size() - 1));
+        }
     }
 
     /**
@@ -63,7 +71,9 @@ public class OngoingOrderService extends Service<Order> {
      */
     @Override
     public void update(int id, Order itemToUpdate) {
-        logger.warn("Order cannot be update");
+        if (logger.isDebugEnabled()) {
+            logger.warn("Order cannot be update");
+        }
         throw new UnsupportedOperationException();
     }
 
@@ -77,9 +87,13 @@ public class OngoingOrderService extends Service<Order> {
     public void remove(int id) {
         try {
             orderList.remove(id);
-            logger.info("Removed item with index: " + id);
+            if (logger.isDebugEnabled()) {
+                logger.info("Removed item with index: " + id);
+            }
         } catch (IndexOutOfBoundsException e) {
-            logger.warn("Order with index: " + id + " not found");
+            if (logger.isDebugEnabled()) {
+                logger.warn("Order with index: " + id + " not found");
+            }
             throw new EntityNotFoundException();
         }
     }
@@ -108,11 +122,15 @@ public class OngoingOrderService extends Service<Order> {
         for (int i = 0; i < orderList.size(); i++) {
             if (i == id) {
                 orderList.get(i).orderItem(menuItem, quantity);
-                logger.info("Added item " + menuItem.getId() + " to order with index " + id);
+                if (logger.isDebugEnabled()) {
+                    logger.info("Added item " + menuItem.getId() + " to order with index " + id);
+                }
                 return;
             }
         }
-        logger.warn("Order with index: " + id + " not found");
+        if (logger.isDebugEnabled()) {
+            logger.warn("Order with index: " + id + " not found");
+        }
         throw new EntityNotFoundException();
     }
 
@@ -126,11 +144,15 @@ public class OngoingOrderService extends Service<Order> {
         for (int i = 0; i < orderList.size(); i++) {
             if (i == id) {
                 orderList.get(i).removeItem(menuItem);
-                logger.info("Removed item " + menuItem.getId() + " from order with index " + id);
+                if (logger.isDebugEnabled()) {
+                    logger.info("Removed item " + menuItem.getId() + " from order with index " + id);
+                }
                 return;
             }
         }
-        logger.warn("Order with index: " + id + " not found");
+        if (logger.isDebugEnabled()) {
+            logger.warn("Order with index: " + id + " not found");
+        }
         throw new EntityNotFoundException();
     }
 }

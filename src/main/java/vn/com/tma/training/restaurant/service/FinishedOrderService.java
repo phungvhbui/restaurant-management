@@ -30,7 +30,9 @@ public class FinishedOrderService extends Service<Order> {
         OrderReader orderReader = new OrderReader();
         this.orderWriter = new OrderWriter();
         this.orderList = orderReader.read();
-        logger.info("Initialized Order service");
+        if (logger.isDebugEnabled()) {
+            logger.info("Initialized Order service");
+        }
     }
 
     /**
@@ -44,11 +46,15 @@ public class FinishedOrderService extends Service<Order> {
     public Order get(int id) {
         for (Order order : orderList) {
             if (order.getId() == id) {
-                logger.info("Found order with index: " + id);
+                if (logger.isDebugEnabled()) {
+                    logger.info("Found order with index: " + id);
+                }
                 return order;
             }
         }
-        logger.warn("Order with index: " + id + " not found");
+        if (logger.isDebugEnabled()) {
+            logger.warn("Order with index: " + id + " not found");
+        }
         throw new EntityNotFoundException();
     }
 
@@ -66,7 +72,9 @@ public class FinishedOrderService extends Service<Order> {
         orderList.add(itemToAdd);
         orderWriter.write(this.orderList);
         indexWriter.write(index);
-        logger.info("Added item with index: " + itemToAdd.getId());
+        if (logger.isDebugEnabled()) {
+            logger.info("Added item with index: " + itemToAdd.getId());
+        }
     }
 
     /**
@@ -78,7 +86,9 @@ public class FinishedOrderService extends Service<Order> {
      */
     @Override
     public void update(int id, Order itemToUpdate) {
-        logger.warn("Order cannot be update");
+        if (logger.isDebugEnabled()) {
+            logger.warn("Order cannot be update");
+        }
         throw new UnsupportedOperationException();
     }
 
@@ -90,7 +100,9 @@ public class FinishedOrderService extends Service<Order> {
      */
     @Override
     public void remove(int id) {
-        logger.warn("Finished order cannot be remove");
+        if (logger.isDebugEnabled()) {
+            logger.warn("Finished order cannot be remove");
+        }
         throw new UnsupportedOperationException();
     }
 
@@ -118,7 +130,9 @@ public class FinishedOrderService extends Service<Order> {
                 return;
             }
         }
-        logger.warn("Order with index: " + id + " not found");
+        if (logger.isDebugEnabled()) {
+            logger.warn("Order with index: " + id + " not found");
+        }
         throw new EntityNotFoundException();
     }
 
