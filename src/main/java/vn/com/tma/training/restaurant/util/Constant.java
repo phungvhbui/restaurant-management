@@ -1,7 +1,10 @@
 package vn.com.tma.training.restaurant.util;
 
+import io.github.cdimascio.dotenv.Dotenv;
+
 import java.io.File;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 /**
  * Constant class holds every constant appeared in the program
@@ -33,10 +36,6 @@ public class Constant {
     public static final String STOCK = "stock";
     public static final String MENU_INDEX = "menuIndex";
     public static final String ORDER_INDEX = "orderIndex";
-    // File
-    public static final File ORDER_FILE = new File(System.getenv("ORDER_FILE"));
-    public static final File MENU_FILE = new File(System.getenv("MENU_FILE"));
-    public static final File INDEX_FILE = new File(System.getenv("INDEX_FILE"));
     // Formatter
     public static final DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     // Menu
@@ -60,7 +59,6 @@ public class Constant {
             "    recover            : Sync the program and database (file)\n" +
             "    quit/exit          : End the session";
     public static final String COMMAND_PREFIX = "> ";
-
     public static final String HELP = "help";
     public static final String MENU_SHOW = "menu show";
     public static final String MENU_GET = "menu get";
@@ -80,4 +78,11 @@ public class Constant {
     public static final String RECOVER = "recover";
     public static final String EXIT = "exit";
     public static final String QUIT = "quit";
+
+    // Environment file
+    private static final Dotenv dotenv = Dotenv.load();
+    // File
+    public static final File ORDER_FILE = new File(Objects.requireNonNull(dotenv.get("ORDER_FILE_NAME")));
+    public static final File MENU_FILE = new File(Objects.requireNonNull(dotenv.get("MENU_FILE_NAME")));
+    public static final File INDEX_FILE = new File(Objects.requireNonNull(dotenv.get("INDEX_FILE_NAME")));
 }
