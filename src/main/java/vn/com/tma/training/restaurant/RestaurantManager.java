@@ -410,6 +410,7 @@ public class RestaurantManager {
         try {
             menuService.sync();
             finishedOrderService.sync();
+            System.out.println("Sync file successfully.\n");
         } catch (IOException e) {
             System.out.println("Error in writing to file.\n");
         } catch (Exception e) {
