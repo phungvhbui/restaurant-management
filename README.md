@@ -25,6 +25,7 @@ A simple console application to manage restaurant within Menu and Order specific
 
 - [x] Class diagram
 - [x] Sequence diagram
+- [x] Slide and resource list: https://docs.google.com/presentation/d/1fcWeX6Mg5HdWIEBF3tcT8JCNRGje2qks1sPuUkjA7qk/edit?usp=sharing 
 
 ## Execution guide
 - Install Apache Maven: https://maven.apache.org/install.html 
