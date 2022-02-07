@@ -1,6 +1,7 @@
 # Restaurant Management
 
-A simple console application to manage restaurant within Menu and Order specifically
+A simple console application to manage restaurant within Menu and Order specifically.
+This exercise is to practice clean code principles based on Uncle Bob's Clean Code during my TMA Solutions training.
 
 # TO DO:
 
