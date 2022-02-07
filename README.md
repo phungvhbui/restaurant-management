@@ -19,9 +19,16 @@ A simple console application to manage restaurant within Menu and Order specific
 
 ## Build
 
-- [ ] Build to jar
+- [x] Build to jar
 
 ## Presentation
 
 - [x] Class diagram
-- [ ] Sequence diagram
+- [x] Sequence diagram
+
+## Execution guide
+- Install Apache Maven: https://maven.apache.org/install.html 
+- To build the project:
+  `mvn clean package`
+- To run the created jar file:
+  `java -jar <path-to-file>`
