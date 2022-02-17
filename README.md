@@ -17,6 +17,8 @@ This exercise is to practice clean code principles based on Uncle Bob's Clean Co
 - [x] Fix order stock logic
 - [x] Add logging
 - [x] Add java doc
+- [ ] Fix minor logic in order
+- [ ] Apply Command design pattern
 
 ## Build
 
